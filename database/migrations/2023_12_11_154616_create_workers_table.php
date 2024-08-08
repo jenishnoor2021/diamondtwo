@@ -25,6 +25,7 @@ class CreateWorkersTable extends Migration
             $table->string('bank_name')->nullable();
             $table->string('ifsc_code')->nullable();
             $table->string('account_no')->nullable();
+            $table->text('remark')->nullable();
             $table->string('account_holder_name')->nullable();
             $table->timestamps();
         });

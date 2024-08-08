@@ -41,6 +41,13 @@
                @endif
             </div>
             <div class="form-group">
+               <label for="remark">Remark / katori</label>
+               <textarea type="text" name="remark" class="form-control form-control-rounded" id="remark" placeholder="Enter Remark / katori" required>{{ old('remark') }}</textarea>
+               @if($errors->has('remark'))
+               <div class="error text-danger">{{ $errors->first('remark') }}</div>
+               @endif
+            </div>
+            <div class="form-group">
                <label for="address">Address</label>
                <textarea type="text" name="address" class="form-control form-control-rounded" id="address" placeholder="Enter Address" required>{{ old('address') }}</textarea>
                @if($errors->has('address'))

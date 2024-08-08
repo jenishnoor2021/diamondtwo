@@ -17,6 +17,7 @@ class CreateDimondsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('parties_id')->unsigned()->index();
             $table->string('dimond_name')->nullable();
+            $table->string('janger_no')->nullable();
             $table->string('shape')->nullable();
             $table->string('weight')->nullable();
             $table->string('required_weight')->nullable();

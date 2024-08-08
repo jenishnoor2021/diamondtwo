@@ -19,18 +19,14 @@ class AdminProcessController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -95,16 +91,27 @@ class AdminProcessController extends Controller
         $dimonds = Dimond::where('id', $process->dimonds_id)->first();
         $r_weight = $request->return_weight;
         $i_weight = $process->issue_weight;
+
+        $diffrence = $i_weight - $r_weight;
+        $weight = $i_weight;
+        $designation = Designation::where('name', $process->designation)->first();
+        if ($designation->rate_apply_on == 'return_weight') {
+            $weight = $r_weight;
+        }
+        if ($designation->rate_apply_on == 'diff_weight') {
+            $weight = $diffrence;
+        }
+
         if ($i_weight < $r_weight) {
             return Redirect::back()->with('error', "Return weight large than Issue weight");
         }
         $rate_cut = $request->has('ratecut') ? (($request->ratecut != null) ? 1 : 0) : 0;
-        if (isset($i_weight)) {
-            if ($i_weight < 1.5)
+        if (isset($weight)) {
+            if ($weight < 1.5)
                 $key = 'key_1';
-            else if ($i_weight >= 1.5 && $i_weight < 2)
+            else if ($weight >= 1.5 && $weight < 2)
                 $key = 'key_2';
-            else if ($i_weight >= 2 && $i_weight < 3)
+            else if ($weight >= 2 && $weight < 3)
                 $key = 'key_3';
             else
                 $key = 'key_4';
@@ -112,12 +119,17 @@ class AdminProcessController extends Controller
             $get_rate = WorkerRate::where('designation', $process->designation)->where('Key', $key)->first();
             if (isset($get_rate)) {
                 $countprocess = Process::where(['dimonds_id' => $process->dimonds_id, 'designation' => $process->designation])->where('return_weight', '!=', '')->count();
+                $processid = Process::where(['dimonds_id' => $process->dimonds_id, 'designation' => $process->designation])->where('return_weight', '!=', '')->first();
                 if ($rate_cut == 1) {
                     $request['price'] = 0;
                 } elseif ($countprocess == 0) {
-                    $request['price'] = $i_weight * ($get_rate->value);
+                    $request['price'] = $weight * ($get_rate->value);
                 } else {
-                    $request['price'] = 0;
+                    if ($processid->id == $request->id) {
+                        $request['price'] = $weight * ($get_rate->value);
+                    } else {
+                        $request['price'] = 0;
+                    }
                 }
                 // if ($countprocess == 0) {
                 //     $request['price'] = $rate_cut == 1 ? 0 : ($i_weight * ($get_rate->value));

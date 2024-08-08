@@ -23,7 +23,16 @@
                      @endif
                   </div>
                </div>
-               <div class="col-4">
+               <div class="col-2">
+                  <div class="form-group">
+                     <label for="janger_no">Janger no</label>
+                     <input type="text" name="janger_no" class="form-control" id="janger_no" placeholder="Enter Janger no" value="{{$dimond->janger_no}}" required>
+                     @if($errors->has('janger_no'))
+                     <div class="error text-danger">{{ $errors->first('janger_no') }}</div>
+                     @endif
+                  </div>
+               </div>
+               <div class="col-2">
                   <div class="form-group">
                      <label for="dimond_name">Stone Id</label>
                      <input type="text" name="dimond_name" class="form-control" id="dimond_name" placeholder="Enter Stone Id" value="{{$dimond->dimond_name}}" required>
@@ -196,6 +205,9 @@
                required: true,
             },
             dimond_name: {
+               required: true,
+            },
+            janger_no: {
                required: true,
             },
             shape: {

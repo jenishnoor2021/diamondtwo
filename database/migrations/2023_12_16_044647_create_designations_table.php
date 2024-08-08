@@ -16,6 +16,8 @@ class CreateDesignationsTable extends Migration
         Schema::create('designations', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('category')->nullable();
+            $table->string('rate_apply_on')->nullable();
             $table->timestamps();
         });
     }

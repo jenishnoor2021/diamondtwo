@@ -52,6 +52,7 @@ class AdminDimondController extends Controller
         $validator = Validator::make($request->all(), [
             'parties_id' => 'required',
             'dimond_name' => ['required', 'string', 'max:255', 'unique:dimonds'],
+            'janger_no' => 'required',
             'weight' => 'required',
             'required_weight' => 'required',
             'shape' => 'required',
@@ -153,10 +154,10 @@ class AdminDimondController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $validator = Validator::make($request->all(), [
             'parties_id' => 'required',
             'dimond_name' => 'required',
+            'janger_no' => 'required',
             'weight' => 'required',
             'required_weight' => 'required',
             'shape' => 'required',
