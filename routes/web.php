@@ -7,7 +7,9 @@ use App\Http\Controllers\AdminDailyController;
 use App\Http\Controllers\AdminPartyController;
 use App\Http\Controllers\AdminDimondController;
 use App\Http\Controllers\AdminWorkerController;
+use App\Http\Controllers\AdminCompanyController;
 use App\Http\Controllers\AdminExpenceController;
+use App\Http\Controllers\AdminInvoiceController;
 use App\Http\Controllers\AdminProcessController;
 use App\Http\Controllers\AdminSlidersController;
 use App\Http\Controllers\AdminPartyRateController;
@@ -181,6 +183,27 @@ Route::group(['middleware' => ['auth', 'usersession']], function () {
     Route::get("admin/check-out", [AdminWorkerAttendanceController::class, 'checkOut'])->name('admin.check-out.index');
     Route::post('admin/check-in/store', [AdminWorkerAttendanceController::class, 'checkInStore'])->name('admin.check-in.store');
     Route::post('admin/check-out/store', [AdminWorkerAttendanceController::class, 'checkOutStore'])->name('admin.check-out.store');
+
+    Route::get("admin/company", [AdminCompanyController::class, 'index'])->name('admin.company.index');
+    Route::get('admin/company/create', [AdminCompanyController::class, 'create'])->name('admin.company.create');
+    Route::post('admin/company/store', [AdminCompanyController::class, 'store'])->name('admin.company.store');
+    Route::get('admin/company/edit/{id}', [AdminCompanyController::class, 'edit'])->name('admin.company.edit');
+    Route::patch('admin/company/update/{id}', [AdminCompanyController::class, 'update'])->name('admin.company.update');
+    Route::get('admin/company/destroy/{id}', [AdminCompanyController::class, 'destroy'])->name('admin.company.destroy');
+
+    Route::get("admin/invoice", [AdminInvoiceController::class, 'index'])->name('admin.invoice.index');
+    Route::get('admin/invoice/create', [AdminInvoiceController::class, 'create'])->name('admin.invoice.create');
+    Route::post('admin/invoice/store', [AdminInvoiceController::class, 'store'])->name('admin.invoice.store');
+    Route::get('admin/invoice/edit/{id}', [AdminInvoiceController::class, 'edit'])->name('admin.invoice.edit');
+    Route::patch('admin/invoice/update/{id}', [AdminInvoiceController::class, 'update'])->name('admin.invoice.update');
+    Route::get('admin/invoice/destroy/{id}', [AdminInvoiceController::class, 'destroy'])->name('admin.invoice.destroy');
+
+    Route::post('admin/invoice/storedata', [App\Http\Controllers\AdminInvoiceController::class, 'storeInvoiceData'])->name('admin.invoice.storedata');
+    Route::get('admin/invoice/editdata/{id}', [App\Http\Controllers\AdminInvoiceController::class, 'editInvoiceData'])->name('admin.invoice.editdata');
+    Route::patch('admin/invoice/updatedata/{id}', [App\Http\Controllers\AdminInvoiceController::class, 'updateInvoiceData'])->name('admin.invoice.updatedata');
+    Route::get('admin/invoice/destroyinvoicedata/{id}', [App\Http\Controllers\AdminInvoiceController::class, 'destroyInvoiceData'])->name('admin.invoicedata.destroy');
+
+    Route::get('admin/invoice/createpdf/{id}', [App\Http\Controllers\AdminInvoiceController::class, 'createPDF'])->name('admin.invoice.pdf');
 });
 
 //Clear Cache facade value:

@@ -24,6 +24,12 @@
     </a>
   </li>
 
+  <li class="{{ (request()->segment(2) == 'invoice') ? 'active' : '' }}">
+    <a href="/admin/invoice">
+      <i class="zmdi zmdi-format-list-bulleted"></i> <span>Invoices</span>
+    </a>
+  </li>
+
   <li class="{{ (request()->segment(2) == 'party') ? 'active' : '' }}">
     <a href="/admin/party">
       <i class="zmdi zmdi-format-list-bulleted"></i> <span>Party</span>
@@ -173,6 +179,11 @@
       <li class="pt-2 pb-2 {{ (request()->segment(2) == 'designation') ? 'active' : '' }}">
         <a href="/admin/designation">
           <span>Designation</span>
+        </a>
+      </li>
+      <li class="pt-2 pb-2 {{ (request()->segment(2) == 'company') ? 'active' : '' }}">
+        <a href="/admin/company">
+          <span>Company Detail</span>
         </a>
       </li>
     </ul>
