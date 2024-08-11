@@ -24,12 +24,6 @@
     </a>
   </li>
 
-  <li class="{{ (request()->segment(2) == 'invoice') ? 'active' : '' }}">
-    <a href="/admin/invoice">
-      <i class="zmdi zmdi-format-list-bulleted"></i> <span>Invoices</span>
-    </a>
-  </li>
-
   <li class="{{ (request()->segment(2) == 'party') ? 'active' : '' }}">
     <a href="/admin/party">
       <i class="zmdi zmdi-format-list-bulleted"></i> <span>Party</span>
@@ -127,6 +121,12 @@
     </a>
   </li>
 
+  <li class="{{ (request()->segment(2) == 'invoice') ? 'active' : '' }}">
+    <a href="/admin/invoice">
+      <i class="zmdi zmdi-format-list-bulleted"></i> <span>Invoices</span>
+    </a>
+  </li>
+
   <li class="{{ (request()->segment(2) == 'worker-barcode') ? 'active' : '' }}">
     <a href="/admin/worker-barcode">
       <i class="zmdi zmdi-format-list-bulleted"></i> <span>Generate worker barcode</span>
@@ -166,7 +166,7 @@
       <i class="icon-settings mr-2"></i> <span>Setting</span>
     </a>
     <ul class="submenu">
-      <li class="pt-2 pb-2 {{ (request()->segment(2) == 'party_rate') ? 'active' : '' }}">
+      <!-- <li class="pt-2 pb-2 {{ (request()->segment(2) == 'party_rate') ? 'active' : '' }}">
         <a href="/admin/party_rate">
           <span>Party Rate</span>
         </a>
@@ -175,7 +175,7 @@
         <a href="/admin/worker_rate">
           <span>Worker Rate</span>
         </a>
-      </li>
+      </li> -->
       <li class="pt-2 pb-2 {{ (request()->segment(2) == 'designation') ? 'active' : '' }}">
         <a href="/admin/designation">
           <span>Designation</span>

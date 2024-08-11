@@ -66,6 +66,7 @@
                      <label for="shape">Shape</label>
                      <select name="shape" id="shape" class="custom-select" style="width:100%" required>
                         <option value="">Select shape</option>
+                        <option value="Modifiy">Modifiy</option>
                         <option value="Round">Round</option>
                         <option value="Oval">Oval</option>
                         <option value="Pear">Pear</option>
@@ -144,9 +145,8 @@
                   <div class="form-group">
                      <label for="cut">Cut</label>
                      <select name="cut" id="cut" class="custom-select" required>
-                        <option value="">Select cut</option>
-                        <option value="Ideal">Ideal</option>
                         <option value="EX">EX</option>
+                        <option value="Ideal">Ideal</option>
                         <option value="VG">VG</option>
                         <option value="GD">GD</option>
                      </select>
@@ -159,9 +159,8 @@
                   <div class="form-group">
                      <label for="polish">Polish</label>
                      <select name="polish" id="polish" class="custom-select" required>
-                        <option value="">Select polish</option>
-                        <option value="Ideal">Ideal</option>
                         <option value="EX">EX</option>
+                        <option value="Ideal">Ideal</option>
                         <option value="VG">VG</option>
                         <option value="GD">GD</option>
                      </select>
@@ -174,9 +173,8 @@
                   <div class="form-group">
                      <label for="symmetry">Symmetry</label>
                      <select name="symmetry" id="symmetry" class="custom-select" required>
-                        <option value="">Select symmetry</option>
-                        <option value="Ideal">Ideal</option>
                         <option value="EX">EX</option>
+                        <option value="Ideal">Ideal</option>
                         <option value="VG">VG</option>
                         <option value="GD">GD</option>
                      </select>

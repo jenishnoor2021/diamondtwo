@@ -59,6 +59,72 @@
                   </div>
                </div>
             </div>
+
+            <hr />
+            <h5>Party Rate (Round)</h5>
+            <hr />
+            <div class="row">
+               <div class="col-4">
+                  <div class="form-group">
+                     <label for="round_1">Rate (Small than 2.99)</label>
+                     <input type="number" name="round_1" class="form-control form-control-rounded" id="round_1" placeholder="Enter amount" value="{{ old('round_1') }}">
+                     @if($errors->has('round_1'))
+                     <div class="error text-danger">{{ $errors->first('round_1') }}</div>
+                     @endif
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="form-group">
+                     <label for="round_2">Rate (3.00 to 9.99)</label>
+                     <input type="number" name="round_2" class="form-control form-control-rounded" id="round_2" placeholder="Enter amount" value="{{ old('round_2') }}">
+                     @if($errors->has('round_2'))
+                     <div class="error text-danger">{{ $errors->first('round_2') }}</div>
+                     @endif
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="form-group">
+                     <label for="round_3">Rate (10.00 to more)</label>
+                     <input type="number" name="round_3" class="form-control form-control-rounded" id="round_3" placeholder="Enter amount" value="{{ old('round_3') }}">
+                     @if($errors->has('round_3'))
+                     <div class="error text-danger">{{ $errors->first('round_3') }}</div>
+                     @endif
+                  </div>
+               </div>
+            </div>
+            <hr />
+            <h5>Party Rate (Fancy)</h5>
+            <hr />
+            <div class="row">
+               <div class="col-4">
+                  <div class="form-group">
+                     <label for="fancy_1">Rate (Small than 2.99)</label>
+                     <input type="number" name="fancy_1" class="form-control form-control-rounded" id="fancy_1" placeholder="Enter amount" value="{{ old('fancy_1') }}">
+                     @if($errors->has('fancy_1'))
+                     <div class="error text-danger">{{ $errors->first('fancy_1') }}</div>
+                     @endif
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="form-group">
+                     <label for="fancy_2">Rate (3.00 to 9.99)</label>
+                     <input type="number" name="fancy_2" class="form-control form-control-rounded" id="fancy_2" placeholder="Enter amount" value="{{ old('fancy_2') }}">
+                     @if($errors->has('fancy_2'))
+                     <div class="error text-danger">{{ $errors->first('fancy_2') }}</div>
+                     @endif
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="form-group">
+                     <label for="fancy_3">Rate (10.00 to more)</label>
+                     <input type="number" name="fancy_3" class="form-control form-control-rounded" id="fancy_3" placeholder="Enter amount" value="{{ old('fancy_3') }}">
+                     @if($errors->has('fancy_3'))
+                     <div class="error text-danger">{{ $errors->first('fancy_3') }}</div>
+                     @endif
+                  </div>
+               </div>
+            </div>
+
             <div class="form-group">
                <button type="submit" class="btn btn-light btn-round px-5"><i class="fa fa-plus"></i> ADD</button>
             </div>

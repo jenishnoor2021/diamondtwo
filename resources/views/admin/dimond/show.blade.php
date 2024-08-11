@@ -245,7 +245,7 @@
                   <input type="text" name="return_weight" class="form-control form-control-rounded" id="return_weigh{{$process->id}}" placeholder="00.00" oninput="formatWeight(this);" value="">
                </div>
                <label>
-                  <input type="checkbox" name="ratecut" id="ratecut{{$process->id}}" value="">
+                  <input type="checkbox" name="ratecut" id="ratecut{{$process->id}}">
                   RateCut
                </label>
             </div>

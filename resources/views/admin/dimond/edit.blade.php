@@ -66,6 +66,7 @@
                      <label for="shape">Shape</label>
                      <select name="shape" id="shape" class="custom-select" required>
                         <option value="">Select shape</option>
+                        <option value="Modifiy" {{$dimond->shape == 'Modifiy' ? 'selected' : ''}}>Modifiy</option>
                         <option value="Round" {{$dimond->shape == 'Round' ? 'selected' : ''}}>Round</option>
                         <option value="Oval" {{$dimond->shape == 'Oval' ? 'selected' : ''}}>Oval</option>
                         <option value="Pear" {{$dimond->shape == 'Pear' ? 'selected' : ''}}>Pear</option>
@@ -144,9 +145,8 @@
                   <div class="form-group">
                      <label for="cut">Cut</label>
                      <select name="cut" id="cut" class="custom-select" required>
-                        <option value="">Select cut</option>
-                        <option value="Ideal" {{$dimond->cut == 'Ideal' ? 'selected' : ''}}>Ideal</option>
                         <option value="EX" {{$dimond->cut == 'EX' ? 'selected' : ''}}>EX</option>
+                        <option value="Ideal" {{$dimond->cut == 'Ideal' ? 'selected' : ''}}>Ideal</option>
                         <option value="VG" {{$dimond->cut == 'VG' ? 'selected' : ''}}>VG</option>
                         <option value="GD" {{$dimond->cut == 'GD' ? 'selected' : ''}}>GD</option>
                      </select>
@@ -159,9 +159,8 @@
                   <div class="form-group">
                      <label for="polish">Polish</label>
                      <select name="polish" id="polish" class="custom-select" required>
-                        <option value="">Select polish</option>
-                        <option value="Ideal" {{$dimond->polish == 'Ideal' ? 'selected' : ''}}>Ideal</option>
                         <option value="EX" {{$dimond->polish == 'EX' ? 'selected' : ''}}>EX</option>
+                        <option value="Ideal" {{$dimond->polish == 'Ideal' ? 'selected' : ''}}>Ideal</option>
                         <option value="VG" {{$dimond->polish == 'VG' ? 'selected' : ''}}>VG</option>
                         <option value="GD" {{$dimond->polish == 'GD' ? 'selected' : ''}}>GD</option>
                      </select>
@@ -174,8 +173,8 @@
                   <div class="form-group">
                      <label for="symmetry">Symmetry</label>
                      <select name="symmetry" id="symmetry" class="custom-select" required>
-                        <option value="Ideal" {{$dimond->symmetry == 'Ideal' ? 'selected' : ''}}>Ideal</option>
                         <option value="EX" {{$dimond->symmetry == 'EX' ? 'selected' : ''}}>EX</option>
+                        <option value="Ideal" {{$dimond->symmetry == 'Ideal' ? 'selected' : ''}}>Ideal</option>
                         <option value="VG" {{$dimond->symmetry == 'VG' ? 'selected' : ''}}>VG</option>
                         <option value="GD" {{$dimond->symmetry == 'GD' ? 'selected' : ''}}>GD</option>
                      </select>

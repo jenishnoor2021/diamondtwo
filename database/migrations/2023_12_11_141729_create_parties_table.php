@@ -21,6 +21,12 @@ class CreatePartiesTable extends Migration
             $table->text('address')->nullable();
             $table->string('gst_no')->nullable();
             $table->string('mobile')->nullable();
+            $table->string('round_1')->default(0);
+            $table->string('round_2')->default(0);
+            $table->string('round_3')->default(0);
+            $table->string('fancy_1')->default(0);
+            $table->string('fancy_2')->default(0);
+            $table->string('fancy_3')->default(0);
             $table->string('is_active')->default(1)->nullable();
             $table->timestamps();
         });
