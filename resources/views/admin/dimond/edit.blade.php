@@ -65,7 +65,7 @@
                   <div class="form-group">
                      <label for="shape">Shape</label>
                      <select name="shape" id="shape" class="custom-select" required>
-                        <option value="">Select shape</option>
+                        <!-- <option value="">Select shape</option> -->
                         <option value="Modifiy" {{$dimond->shape == 'Modifiy' ? 'selected' : ''}}>Modifiy</option>
                         <option value="Round" {{$dimond->shape == 'Round' ? 'selected' : ''}}>Round</option>
                         <option value="Oval" {{$dimond->shape == 'Oval' ? 'selected' : ''}}>Oval</option>
@@ -93,7 +93,7 @@
                   <div class="form-group">
                      <label for="clarity">Clarity</label>
                      <select name="clarity" id="clarity" class="custom-select" required>
-                        <option value="">Select clarity</option>
+                        <!-- <option value="">Select clarity</option> -->
                         <option value="FL" {{$dimond->clarity == 'FL' ? 'selected' : ''}}>FL</option>
                         <option value="IF" {{$dimond->clarity == 'IF' ? 'selected' : ''}}>IF</option>
                         <option value="VVS1" {{$dimond->clarity == 'VVS1' ? 'selected' : ''}}>VVS1</option>
@@ -116,7 +116,7 @@
                   <div class="form-group">
                      <label for="color">Color</label>
                      <select name="color" id="color" class="custom-select" required>
-                        <option value="">Select color</option>
+                        <!-- <option value="">Select color</option> -->
                         <option value="D" {{$dimond->color == 'D' ? 'selected' : ''}}>D</option>
                         <option value="E" {{$dimond->color == 'E' ? 'selected' : ''}}>E</option>
                         <option value="F" {{$dimond->color == 'F' ? 'selected' : ''}}>F</option>

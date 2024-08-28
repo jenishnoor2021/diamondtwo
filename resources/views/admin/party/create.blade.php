@@ -37,7 +37,7 @@
             </div>
             <div class="form-group">
                <label for="address">Address</label>
-               <textarea type="text" name="address" class="form-control form-control-rounded" id="address" placeholder="Enter Address" required>{{ old('address') }}</textarea>
+               <textarea type="text" name="address" class="form-control form-control-rounded" id="address" placeholder="Enter Address">{{ old('address') }}</textarea>
                @if($errors->has('address'))
                <div class="error text-danger">{{ $errors->first('address') }}</div>
                @endif
@@ -46,7 +46,7 @@
                <div class="col-6">
                   <div class="form-group">
                      <label for="mobile">Mobile no</label>
-                     <input type="number" name="mobile" class="form-control form-control-rounded" id="mobile" placeholder="Enter number" value="{{ old('mobile') }}" required>
+                     <input type="number" name="mobile" class="form-control form-control-rounded" id="mobile" placeholder="Enter number" value="{{ old('mobile') }}">
                      @if($errors->has('mobile'))
                      <div class="error text-danger">{{ $errors->first('mobile') }}</div>
                      @endif
@@ -55,7 +55,7 @@
                <div class="col-6">
                   <div class="form-group">
                      <label for="gst_no">GST No</label>
-                     <input type="text" name="gst_no" class="form-control form-control-rounded" id="gst_no" placeholder="Enter GST No" value="{{ old('fname') }}">
+                     <input type="text" name="gst_no" class="form-control form-control-rounded" id="gst_no" placeholder="Enter GST No" value="{{ old('gst_no') }}">
                   </div>
                </div>
             </div>
@@ -147,12 +147,12 @@
             lname: {
                required: true,
             },
-            address: {
-               required: true,
-            },
-            mobile: {
-               required: true,
-            },
+            //address: {
+            //   required: true,
+            //},
+            //mobile: {
+            //   required: true,
+            //},
             party_code: {
                required: true,
             }

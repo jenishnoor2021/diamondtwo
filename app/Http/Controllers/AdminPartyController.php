@@ -43,8 +43,8 @@ class AdminPartyController extends Controller
             'fname' => 'required',
             'lname' => 'required',
             'party_code' => 'required',
-            'address' => 'required',
-            'mobile' => 'required',
+            // 'address' => 'required',
+            // 'mobile' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -95,8 +95,8 @@ class AdminPartyController extends Controller
             'fname' => 'required',
             'lname' => 'required',
             'party_code' => 'required',
-            'address' => 'required',
-            'mobile' => 'required',
+            // 'address' => 'required',
+            // 'mobile' => 'required',
         ]);
 
         if ($validator->fails()) {

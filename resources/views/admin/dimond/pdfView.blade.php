@@ -35,7 +35,7 @@
   <div>
     <p><b>SID: {{ $dimond->dimond_name }}&nbsp;|&nbsp;RW: {{ $dimond->weight }}</b></p>
     <div style="margin-left:30px;margin-top:-10px"><svg id="barcode"></svg></div>
-    <p style="font-size:8px;margin-top:-10px;margin-left:40px">HR Diamond</p>
+    <p style="font-size:8px;margin-top:-10px;margin-left:40px">DI Diamond</p>
   </div>
   <button class="no-print" onclick="window.print()">Print</button>
 

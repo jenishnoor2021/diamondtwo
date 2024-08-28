@@ -19,6 +19,16 @@ use Carbon\Carbon;
           <h4>Diamond Slip</h4>
         </div>
         <hr>
+        @if (session('success'))
+        <div class="alert text-white pl-3 pt-2 pb-2" style="background-color:green">
+          {{ session('success') }}
+        </div>
+        @endif
+        @if (session('error'))
+        <div class="alert text-white pl-3 pt-2 pb-2" style="background-color:red">
+          {{ session('error') }}
+        </div>
+        @endif
         <form action="{{ route('admin.diamondslip') }}" method="GET">
           @csrf
           <div class="row">

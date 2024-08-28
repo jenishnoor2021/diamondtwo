@@ -154,8 +154,8 @@ use App\Models\Dimond;
   <div class="container">
     <center>
       <h4>SUMMARY REPORT</h4>
-      <h1 style="margin-top:-10px">HR DIMONDS</h1>
-      <p style="font-size:10px;margin-top:-12px">OFFICE NO.A-4,FIRST FLOOR,ENTW AP PARK,KANSHARA SHERI,<br />SURAT,SURAT,GUJRAT,395003 Gujarat</p>
+      <h1 style="margin-top:-10px">DHYANI IMPEX</h1>
+      <p style="font-size:10px;margin-top:-12px">E-102, FIRST FLOOR, Happyness Residency, BEHIND S HRUSHTI ROW HOUSE,<br /> Surat Surat, GUJARAT, 394107</p>
     </center>
 
     <br />

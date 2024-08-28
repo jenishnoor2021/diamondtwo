@@ -16,7 +16,7 @@ use App\Models\Dimond;
   <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
-        <h4>HR Dimond List
+        <h4>DHYANI IMPEX List
           <div class="card-action">
             <a href="/admin/hr-export" class="btn btn-success">Export Slip</a>
           </div>

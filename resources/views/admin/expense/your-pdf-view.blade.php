@@ -136,7 +136,7 @@ use Carbon\Carbon;
     <div class="row">
       <div class="column">
         <div class="d-flex align-items-center justify-content-center">
-          <h1 class="align-center title">HR Dimond</h1>
+          <h1 class="align-center title">DHYANI IMPEX</h1>
         </div>
         <br />
         <div class="d-flex justify-content-center">

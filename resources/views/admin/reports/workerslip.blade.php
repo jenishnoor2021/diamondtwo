@@ -22,6 +22,16 @@ use App\Models\Process;
           <h4>Worker Slip</h4>
         </div>
         <hr>
+        @if (session('success'))
+        <div class="alert text-white pl-3 pt-2 pb-2" style="background-color:green">
+          {{ session('success') }}
+        </div>
+        @endif
+        @if (session('error'))
+        <div class="alert text-white pl-3 pt-2 pb-2" style="background-color:red">
+          {{ session('error') }}
+        </div>
+        @endif
         <form id="myForm" action="{{ route('admin.workersummary') }}" method="GET">
           @csrf
           <div class="row">

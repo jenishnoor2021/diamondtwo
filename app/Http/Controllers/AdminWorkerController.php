@@ -46,9 +46,9 @@ class AdminWorkerController extends Controller
             'fname' => 'required|unique:workers,fname',
             'lname' => 'required',
             'designation' => 'required',
-            'address' => 'required',
-            'mobile' => 'required',
-            'aadhar_no' => 'required',
+            // 'address' => 'required',
+            // 'mobile' => 'required',
+            // 'aadhar_no' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -105,9 +105,9 @@ class AdminWorkerController extends Controller
             'fname' => 'required|unique:workers,fname,' . $worker->id,
             'lname' => 'required',
             'designation' => 'required',
-            'address' => 'required',
-            'mobile' => 'required',
-            'aadhar_no' => 'required',
+            // 'address' => 'required',
+            // 'mobile' => 'required',
+            // 'aadhar_no' => 'required',
         ]);
 
         if ($validator->fails()) {

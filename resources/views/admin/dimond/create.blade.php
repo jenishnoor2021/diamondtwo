@@ -65,7 +65,7 @@
                   <div class="form-group">
                      <label for="shape">Shape</label>
                      <select name="shape" id="shape" class="custom-select" style="width:100%" required>
-                        <option value="">Select shape</option>
+                        <!-- <option value="">Select shape</option> -->
                         <option value="Modifiy">Modifiy</option>
                         <option value="Round">Round</option>
                         <option value="Oval">Oval</option>
@@ -93,7 +93,7 @@
                   <div class="form-group">
                      <label for="clarity">Clarity</label>
                      <select name="clarity" id="clarity" class="custom-select" required>
-                        <option value="">Select clarity</option>
+                        <!-- <option value="">Select clarity</option> -->
                         <option value="FL">FL</option>
                         <option value="IF">IF</option>
                         <option value="VVS1">VVS1</option>
@@ -116,7 +116,7 @@
                   <div class="form-group">
                      <label for="color">Color</label>
                      <select name="color" id="color" class="custom-select" required>
-                        <option value="">Select color</option>
+                        <!-- <option value="">Select color</option> -->
                         <option value="D">D</option>
                         <option value="E">E</option>
                         <option value="F">F</option>

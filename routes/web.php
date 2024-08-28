@@ -204,6 +204,9 @@ Route::group(['middleware' => ['auth', 'usersession']], function () {
     Route::get('admin/invoice/destroyinvoicedata/{id}', [App\Http\Controllers\AdminInvoiceController::class, 'destroyInvoiceData'])->name('admin.invoicedata.destroy');
 
     Route::get('admin/invoice/createpdf/{id}', [App\Http\Controllers\AdminInvoiceController::class, 'createPDF'])->name('admin.invoice.pdf');
+
+    Route::get('admin/import-diamonds-page', [App\Http\Controllers\AdminDimondController::class, 'importPage'])->name('admin.dimond.import');
+    Route::post('admin/import-diamonds', [App\Http\Controllers\AdminDimondController::class, 'import'])->name('import.diamonds');
 });
 
 //Clear Cache facade value:

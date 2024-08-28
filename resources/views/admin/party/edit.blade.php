@@ -37,7 +37,7 @@
             </div>
             <div class="form-group">
                <label for="address">Address</label>
-               <textarea type="text" name="address" class="form-control form-control-rounded" id="address" placeholder="Enter Address" required>{{$party->address}}</textarea>
+               <textarea type="text" name="address" class="form-control form-control-rounded" id="address" placeholder="Enter Address">{{$party->address}}</textarea>
                @if($errors->has('address'))
                <div class="error text-danger">{{ $errors->first('address') }}</div>
                @endif
@@ -46,7 +46,7 @@
                <div class="col-6">
                   <div class="form-group">
                      <label for="mobile">Mobile no</label>
-                     <input type="number" name="mobile" class="form-control form-control-rounded" id="mobile" placeholder="Enter number" value="{{$party->mobile}}" required>
+                     <input type="number" name="mobile" class="form-control form-control-rounded" id="mobile" placeholder="Enter number" value="{{$party->mobile}}">
                      @if($errors->has('mobile'))
                      <div class="error text-danger">{{ $errors->first('mobile') }}</div>
                      @endif
@@ -147,12 +147,12 @@
             lname: {
                required: true,
             },
-            address: {
-               required: true,
-            },
-            mobile: {
-               required: true,
-            },
+            // address: {
+            //    required: true,
+            // },
+            // mobile: {
+            //    required: true,
+            // },
             party_code: {
                required: true,
             }

@@ -157,8 +157,8 @@ use Carbon\Carbon;
       <div class="column-left">
         <center>
           <h4 style="font-size:10px;">OUTTER WORKER SLIP REPORT</h4>
-          <h1 style="font-size:12px;">HR DIMONDS</h1>
-          <p style="font-size:8px;margin-top:-8px">1st Floor, Rajrajeshvar Mahadev Mandir, Near Ambika Vijay Farshan,<br />Ghia Sheri,Mahidharpura, Surat, Guj., Ind.</p>
+          <h1 style="font-size:12px;">DHYANI IMPEX</h1>
+          <p style="font-size:8px;margin-top:-8px">E-102, FIRST FLOOR, Happyness Residency, BEHIND S HRUSHTI ROW HOUSE,<br /> Surat Surat, GUJARAT, 394107</p>
         </center>
         <hr />
         <p style="font-size:9px;">
@@ -203,8 +203,8 @@ use Carbon\Carbon;
       <div class="column-right">
         <center>
           <h4 style="font-size:10px;">OUTTER WORKER SLIP REPORT</h4>
-          <h1 style="font-size:12px;">HR DIMONDS</h1>
-          <p style="font-size:8px;margin-top:-8px">1st Floor, Rajrajeshvar Mahadev Mandir, Near Ambika Vijay Farshan,<br />Ghia Sheri,Mahidharpura, Surat, Guj., Ind.</p>
+          <h1 style="font-size:12px;">DHYANI IMPEX</h1>
+          <p style="font-size:8px;margin-top:-8px">E-102, FIRST FLOOR, Happyness Residency, BEHIND S HRUSHTI ROW HOUSE,<br /> Surat Surat, GUJARAT, 394107</p>
         </center>
         <hr />
         <p style="font-size:9px;">

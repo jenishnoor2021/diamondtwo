@@ -7,7 +7,23 @@
     </li>
   </ul>
 
+  <div>
+    <form method="GET" action="{{ route('dimond.detail') }}" class="mx-auto">
+      @csrf
+      <input type="text" id="inputField" name="inputField" placeholder="Search barcode / diamond name" value="{{request()->inputField}}" style="color:white;background-color:transparent;" required>
+    </form>
+  </div>
+
   <ul class="navbar-nav align-items-center right-nav-link">
+    <li class="nav-item">
+      @if ($errors->any())
+      <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+        <p>{{ $error }}</p>
+        @endforeach
+      </div>
+      @endif
+    </li>
     <li class="nav-item">
       <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
         <span class="user-profile"><img src="{{asset('/images/user-icone.png')}}" class="img-circle" alt="user avatar"></span>

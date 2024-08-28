@@ -22,6 +22,7 @@
                <thead>
                   <tr>
                      <th>Action</th>
+                     <th>Party id</th>
                      <th>First name</th>
                      <th>Last Name</th>
                      <th>Party code</th>
@@ -38,6 +39,7 @@
                         <a href="{{route('admin.party.edit', $party->id)}}"><i class="fa fa-edit" style="color:white;font-size:15px;background-color:rgba(255, 255, 255, 0.25);padding:8px;"></i></a>
                         <a href="{{route('admin.party.destroy', $party->id)}}" onclick="return confirm('Sure ! You want to delete ?');"><i class="fa fa-trash" style="color:white;font-size:15px;background-color:rgba(255, 255, 255, 0.25);padding:8px;"></i></a>
                      </td>
+                     <td>{{$party->id}}</td>
                      <td>{{$party->fname}}</td>
                      <td>{{$party->lname}}</td>
                      <td>{{$party->party_code}}</td>

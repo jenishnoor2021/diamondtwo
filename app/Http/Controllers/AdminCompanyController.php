@@ -127,7 +127,7 @@ class AdminCompanyController extends Controller
 
         $company = Company::findOrFail($id);
 
-        if ($file = $request->file('file')) {
+        if ($file = $request->file('sign')) {
 
             $str = $file->getClientOriginalName();
             $str = str_replace(' ', '_', $str);
@@ -136,14 +136,14 @@ class AdminCompanyController extends Controller
 
             $file->move('companysign', $name);
 
-            if ($company->file != '/companysign/') {
-                if (file_exists(public_path() . $company->file)) {
-                    unlink(public_path() . $company->file);
+            if ($company->sign != '/companysign/') {
+                if (file_exists(public_path() . $company->sign)) {
+                    unlink(public_path() . $company->sign);
                 }
             }
 
             $company->update([
-                'file' => $name ?? '',
+                'sign' => $name ?? '',
             ]);
         }
 

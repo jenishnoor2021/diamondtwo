@@ -405,7 +405,7 @@ class AdminExpenceController extends Controller
         // Get the active sheet
         $sheet = $spreadsheet->getActiveSheet();
 
-        $title = 'HR Diamonds';
+        $title = 'DHYANI IMPEX';
         $titleCell = 'A1:L1';
         $sheet->setCellValue('A1', $title);
         $sheet->mergeCells($titleCell);
@@ -515,10 +515,10 @@ class AdminExpenceController extends Controller
         if (isset($startDate)) {
             if (isset($endDate)) {
                 // If both start and end dates are provided
-                $dimondsQuery->whereDate('updated_at', '>=', $startDate)->whereDate('updated_at', '<=', $endDate);
+                $dimondsQuery->whereDate('delevery_date', '>=', $startDate)->whereDate('delevery_date', '<=', $endDate);
             } else {
                 // If only start date is provided
-                $dimondsQuery->where('updated_at', '>=', $startDate);
+                $dimondsQuery->where('delevery_date', '>=', $startDate);
             }
         }
 
@@ -708,7 +708,7 @@ class AdminExpenceController extends Controller
                 }
                 if (isset($worker_name) && $worker_name == 'all') {
                     $workers = Worker::whereIn('designation', $categorydesignation)->get();
-                    return view('admin.reports.workersummaryAll', compact('workerLists', 'workers', 'designations'));
+                    // return view('admin.reports.workersummaryAll', compact('workerLists', 'workers', 'designations'));
                 }
             }
         } else if (isset($category) && $category == 'all') {
@@ -724,7 +724,7 @@ class AdminExpenceController extends Controller
                 }
                 if (isset($worker_name) && $worker_name == 'all') {
                     $workers = Worker::where('is_active', 1)->get();
-                    return view('admin.reports.workersummaryAll', compact('workerLists', 'workers', 'designations'));
+                    // return view('admin.reports.workersummaryAll', compact('workerLists', 'workers', 'designations'));
                 }
             }
         }
@@ -787,26 +787,29 @@ class AdminExpenceController extends Controller
         $workerprocess = [];
         $worker_name = $request->input('worker_name');
 
-        // Loop through each selected row
-        foreach ($selectedIds as $selectedRow) {
-            // Fetch data from the database based on the ID
-            $process = Process::findOrFail($selectedRow);
-            $dimond = Dimond::where('barcode_number', $process->dimonds_barcode)->first();
+        if (!empty($selectedRows)) {
+            // Loop through each selected row
+            foreach ($selectedIds as $selectedRow) {
+                // Fetch data from the database based on the ID
+                $process = Process::findOrFail($selectedRow);
+                $dimond = Dimond::where('barcode_number', $process->dimonds_barcode)->first();
 
-            // Add the processed data to the array
-            $workerprocess[] = [
-                'dimond_name' => $dimond->dimond_name,
-                'barcode_number' => $dimond->barcode_number,
-                'issue_date' => Carbon::parse($process->issue_date)->format('d-m-Y'),
-                'issue_weight' => $process->issue_weight,
-            ];
+                // Add the processed data to the array
+                $workerprocess[] = [
+                    'dimond_name' => $dimond->dimond_name,
+                    'barcode_number' => $dimond->barcode_number,
+                    'issue_date' => Carbon::parse($process->issue_date)->format('d-m-Y'),
+                    'issue_weight' => $process->issue_weight,
+                ];
+            }
+            // Generate PDF using selected rows data
+            $pdf = PDF::loadView('admin.reports.slip_template', ['workerprocess' => $workerprocess, 'worker_name' => $worker_name]);
+
+            // Return the PDF as a download
+            return $pdf->download('selected_slip_data.pdf');
         }
 
-        // Generate PDF using selected rows data
-        $pdf = PDF::loadView('admin.reports.slip_template', ['workerprocess' => $workerprocess, 'worker_name' => $worker_name]);
-
-        // Return the PDF as a download
-        return $pdf->download('selected_slip_data.pdf');
+        return redirect()->back()->with('error', "Please select Ids");
     }
 
     public function diamondSlip(Request $request)
@@ -852,31 +855,36 @@ class AdminExpenceController extends Controller
         $party = Party::where('id', $request->input('parties_id'))->first();
         $party_name = $party->fname;
 
-        foreach ($selectedIds as $selectedRow) {
-            // Fetch data from the database based on the ID
-            $dimond = Dimond::where('id', $selectedRow)->first();
+        if (!empty($selectedRows)) {
 
-            // Add the processed data to the array
-            $process[] = [
-                'dimond_name' => $dimond->dimond_name,
-                'barcode_number' => $dimond->barcode_number,
-                'weight' => $dimond->weight,
-                'required_weight' => $dimond->required_weight,
-                'shape' => $dimond->shape,
-                'clarity' => $dimond->clarity,
-                'color' => $dimond->color,
-                'cut' => $dimond->cut,
-                'polish' => $dimond->polish,
-                'symmetry' => $dimond->symmetry,
-                'created_at' => $dimond->created_at,
-                'delivery_date' => Carbon::parse($dimond->delevery_date)->format('d-m-Y'),
-            ];
+            foreach ($selectedIds as $selectedRow) {
+                // Fetch data from the database based on the ID
+                $dimond = Dimond::where('id', $selectedRow)->first();
+
+                // Add the processed data to the array
+                $process[] = [
+                    'dimond_name' => $dimond->dimond_name,
+                    'barcode_number' => $dimond->barcode_number,
+                    'weight' => $dimond->weight,
+                    'required_weight' => $dimond->required_weight,
+                    'shape' => $dimond->shape,
+                    'clarity' => $dimond->clarity,
+                    'color' => $dimond->color,
+                    'cut' => $dimond->cut,
+                    'polish' => $dimond->polish,
+                    'symmetry' => $dimond->symmetry,
+                    'created_at' => $dimond->created_at,
+                    'delivery_date' => Carbon::parse($dimond->delevery_date)->format('d-m-Y'),
+                ];
+            }
+
+            // Generate PDF using selected rows data
+            $pdf = PDF::loadView('admin.reports.party_slip_template', ['process' => $process, 'party_name' => $party_name]);
+
+            return $pdf->download('party_slip.pdf');
         }
 
-        // Generate PDF using selected rows data
-        $pdf = PDF::loadView('admin.reports.party_slip_template', ['process' => $process, 'party_name' => $party_name]);
-
-        return $pdf->download('party_slip.pdf');
+        return redirect()->back()->with('error', "Please select Ids");
     }
 
     public function hrExport(Request $request)

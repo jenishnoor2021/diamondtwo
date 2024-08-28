@@ -116,28 +116,28 @@ class AdminProcessController extends Controller
 
             if ($dimonds->shape == 'Round') {
                 if ($weight < 2)
-                    $get_rate = $getWorker->round_1;
+                    $get_rate = !empty($getWorker->round_1) && $getWorker->round_1 != '' ? $getWorker->round_1 : 0;
                 else if ($weight >= 2 && $weight < 5)
-                    $get_rate = $getWorker->round_2;
+                    $get_rate = !empty($getWorker->round_2) && $getWorker->round_2 != '' ? $getWorker->round_2 : 0;
                 else
-                    $get_rate = $getWorker->round_3;
+                    $get_rate = !empty($getWorker->round_3) && $getWorker->round_3 != '' ? $getWorker->round_3 : 0;
             }
 
             if ($dimonds->shape != 'Round') {
                 if ($weight < 2)
-                    $get_rate = $getWorker->fancy_1;
+                    $get_rate = !empty($getWorker->fancy_1) && $getWorker->fancy_1 != '' ? $getWorker->fancy_1 : 0;
                 else if ($weight >= 2 && $weight < 3)
-                    $get_rate = $getWorker->fancy_2;
+                    $get_rate = !empty($getWorker->fancy_2) && $getWorker->fancy_2 != '' ? $getWorker->fancy_2 : 0;
                 else if ($weight >= 3 && $weight < 4)
-                    $get_rate = $getWorker->fancy_3;
+                    $get_rate = !empty($getWorker->fancy_3) && $getWorker->fancy_3 != '' ? $getWorker->fancy_3 : 0;
                 else if ($weight >= 4 && $weight < 5)
-                    $get_rate = $getWorker->fancy_4;
+                    $get_rate = !empty($getWorker->fancy_4) && $getWorker->fancy_4 != '' ? $getWorker->fancy_4 : 0;
                 else if ($weight >= 5 && $weight < 6)
-                    $get_rate = $getWorker->fancy_5;
+                    $get_rate = !empty($getWorker->fancy_5) && $getWorker->fancy_5 != '' ? $getWorker->fancy_5 : 0;
                 else if ($weight >= 6 && $weight < 9)
-                    $get_rate = $getWorker->fancy_6;
+                    $get_rate = !empty($getWorker->fancy_6) && $getWorker->fancy_6 != '' ? $getWorker->fancy_6 : 0;
                 else
-                    $get_rate = $getWorker->fancy_7;
+                    $get_rate = !empty($getWorker->fancy_7) && $getWorker->fancy_7 != '' ? $getWorker->fancy_7 : 0;
             }
 
             // if ($weight < 1.5)
@@ -216,20 +216,20 @@ class AdminProcessController extends Controller
 
             if ($dimonds->shape == 'Round') {
                 if ($dimonds->weight < 3)
-                    $get_party_rate = $partyrate->round_1;
+                    $get_party_rate = !empty($partyrate->round_1) && $partyrate->round_1 != '' ? $partyrate->round_1 : 0;
                 else if ($dimonds->weight >= 3 && $dimonds->weight < 10)
-                    $get_party_rate = $partyrate->round_2;
+                    $get_party_rate = !empty($partyrate->round_2) && $partyrate->round_2 != '' ? $partyrate->round_2 : 0;
                 else
-                    $get_party_rate = $partyrate->round_3;
+                    $get_party_rate = !empty($partyrate->round_3) && $partyrate->round_3 != '' ? $partyrate->round_3 : 0;
             }
 
             if ($dimonds->shape != 'Round') {
                 if ($dimonds->weight < 3)
-                    $get_party_rate = $partyrate->fancy_1;
+                    $get_party_rate = !empty($partyrate->fancy_1) && $partyrate->fancy_1 != '' ? $partyrate->fancy_1 : 0;
                 else if ($dimonds->weight >= 3 && $dimonds->weight < 10)
-                    $get_party_rate = $partyrate->fancy_2;
+                    $get_party_rate = !empty($partyrate->fancy_2) && $partyrate->fancy_2 != '' ? $partyrate->fancy_2 : 0;
                 else
-                    $get_party_rate = $partyrate->fancy_3;
+                    $get_party_rate = !empty($partyrate->fancy_3) && $partyrate->fancy_3 != '' ? $partyrate->fancy_3 : 0;
             }
 
 

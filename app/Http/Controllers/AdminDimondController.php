@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\HeadingRowImport;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class AdminDimondController extends Controller
 {
@@ -120,8 +123,12 @@ class AdminDimondController extends Controller
     {
         $barcode = $request->inputField;
         $designations = Designation::get();
-        $barcodeDetail = Dimond::where('barcode_number', $barcode)->first();
+        // $barcodeDetail = Dimond::where('barcode_number', $barcode)->first();
+        $barcodeDetail = Dimond::where('barcode_number', $barcode)
+            ->orWhere('dimond_name', $barcode)
+            ->first();
         if (isset($barcodeDetail)) {
+            $barcode = $barcodeDetail->barcode_number;
             $processes = Process::where('dimonds_barcode', $barcode)->get();
             $procee_return = Process::where('dimonds_barcode', $barcode)->where('return_weight', null)->first();
             $final_result = Process::where('dimonds_barcode', $barcode)->where('designation', 'Grading')->latest()
@@ -129,7 +136,8 @@ class AdminDimondController extends Controller
             $lastweight = Process::where('dimonds_barcode', $barcode)->orderBy('id', 'DESC')->first();
             return view('admin.dimond.show', compact('designations', 'barcodeDetail', 'processes', 'procee_return', 'final_result', 'lastweight'));
         }
-        return redirect('admin/dimond')->withErrors(['error' => 'Barcode not found']);
+        // return redirect('admin/dimond')->withErrors(['error' => 'Barcode not found']);
+        return Redirect::back()->withErrors(['error' => 'Invalid detail']);
     }
 
     /**
@@ -238,95 +246,61 @@ class AdminDimondController extends Controller
         return view('admin.dimond.hrdimond', compact('deliveredDimonds', 'completedDimonds', 'processingDimonds', 'pendingDimonds', 'repairDimonds'));
     }
 
-    // public function printImage($id)
-    // {
-    //     $dimond = Dimond::where('id', $id)->first();
-
-    //     if (!$dimond) {
-    //         abort(404);
-    //     }
-
-    //     $img = Image::make(public_path('images/dimond-print.jpg'));
-
-    //     $img->text("name", 100, 43, function ($font) {
-    //         $font->file(public_path('fonts/Roboto/bitter/Bitter-Bold.otf'));
-    //         $font->color('#000000');
-    //         $font->size(30);
-    //     });
-
-    //     $img->text("name1", 400, 43, function ($font) {
-    //         $font->file(public_path('fonts/Roboto/bitter/Bitter-Bold.otf'));
-    //         $font->color('#000000');
-    //         $font->size(30);
-    //     });
-
-    //     $img->text("name2", 700, 43, function ($font) {
-    //         $font->file(public_path('fonts/Roboto/bitter/Bitter-Bold.otf'));
-    //         $font->color('#000000');
-    //         $font->size(30);
-    //     });
-
-    //     $img->text("name3", 20, 420, function ($font) {
-    //         $font->file(public_path('fonts/Roboto/bitter/Bitter-Bold.otf'));
-    //         $font->color('#000000');
-    //         $font->size(30);
-    //     });
-
-    //     $img->text("name4", 170, 420, function ($font) {
-    //         $font->file(public_path('fonts/Roboto/bitter/Bitter-Bold.otf'));
-    //         $font->color('#000000');
-    //         $font->size(30);
-    //     });
-
-    //     $bar = `<script src='https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js'></script>
-    //     <script>JsBarcode('#barcode', ` . $dimond->barcode_number . `, {
-    //         format: 'CODE128',
-    //         displayValue: true,
-    //      });</script>
-    //     <svg id=barcode></svg>`;
-
-    //     $img->text($bar, 200, 270, function ($font) {
-    //         $font->file(public_path('fonts/Roboto/bitter/Bitter-Bold.otf'));
-    //         $font->color('#000000');
-    //         $font->size(30);
-    //     });
-
-
-    //     $img->text("name5", 320, 420, function ($font) {
-    //         $font->file(public_path('fonts/Roboto/bitter/Bitter-Bold.otf'));
-    //         $font->color('#000000');
-    //         $font->size(30);
-    //     });
-
-    //     $img->text("name6", 480, 420, function ($font) {
-    //         $font->file(public_path('fonts/Roboto/bitter/Bitter-Bold.otf'));
-    //         $font->color('#000000');
-    //         $font->size(30);
-    //     });
-
-    //     $img->text("name7", 620, 420, function ($font) {
-    //         $font->file(public_path('fonts/Roboto/bitter/Bitter-Bold.otf'));
-    //         $font->color('#000000');
-    //         $font->size(30);
-    //     });
-
-    //     $img->text("name8", 770, 420, function ($font) {
-    //         $font->file(public_path('fonts/Roboto/bitter/Bitter-Bold.otf'));
-    //         $font->color('#000000');
-    //         $font->size(30);
-    //     });
-
-    //     $name = time();
-    //     $img->save(public_path('generateimg/' . $name . '.png'));
-    //     $finalImagePath = 'generateimg/' . $name . '.png';
-
-    //     return view('admin.dimond.imageView', compact('finalImagePath'));
-    // }
-
     public function printImage($id)
     {
         $dimond = Dimond::where('id', $id)->first();
 
         return view('admin.dimond.pdfView', compact('dimond'));
+    }
+
+    public function importPage()
+    {
+        return view('admin.dimond.import');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xls,xlsx',
+        ]);
+
+        $path = $request->file('file')->store('temp');
+
+        $data = Excel::toCollection(null, $path)->first();
+
+        foreach ($data as $key => $row) {
+
+            if ($key == 0) {
+                continue;
+            }
+
+            if ($this->dimondCodeExists($row[11])) {
+                continue;
+            }
+
+            try {
+                Dimond::create([
+                    'parties_id' => trim($row[0]),
+                    'janger_no' => trim($row[1]),
+                    'dimond_name' => trim($row[2]),
+                    'weight' => trim($row[3]),
+                    'required_weight' => trim($row[4]),
+                    'shape' => trim($row[5]),
+                    'clarity' => trim($row[6]),
+                    'color' => trim($row[7]),
+                    'cut' => trim($row[8]),
+                    'polish' => trim($row[9]),
+                    'symmetry' => trim($row[10]),
+                    'barcode_number' => trim($row[11]),
+                    'status' => 'Pending'
+                ]);
+            } catch (\Exception $e) {
+                // Log the error and continue
+                \Log::error('Error inserting row: ' . $e->getMessage());
+                return back()->with('error', 'Something went to wrong');
+            }
+        }
+
+        return back()->with('success', 'Diamonds imported successfully.');
     }
 }

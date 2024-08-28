@@ -42,14 +42,14 @@
             </div>
             <div class="form-group">
                <label for="remark">Remark / katori</label>
-               <textarea type="text" name="remark" class="form-control form-control-rounded" id="remark" placeholder="Enter remark" required>{{$worker->remark}}</textarea>
+               <textarea type="text" name="remark" class="form-control form-control-rounded" id="remark" placeholder="Enter remark">{{$worker->remark}}</textarea>
                @if($errors->has('remark'))
                <div class="error text-danger">{{ $errors->first('remark') }}</div>
                @endif
             </div>
             <div class="form-group">
                <label for="address">Address</label>
-               <textarea type="text" name="address" class="form-control form-control-rounded" id="address" placeholder="Enter Address" required>{{$worker->address}}</textarea>
+               <textarea type="text" name="address" class="form-control form-control-rounded" id="address" placeholder="Enter Address">{{$worker->address}}</textarea>
                @if($errors->has('address'))
                <div class="error text-danger">{{ $errors->first('address') }}</div>
                @endif
@@ -58,7 +58,7 @@
                <div class="col-6">
                   <div class="form-group">
                      <label for="mobile">Mobile no</label>
-                     <input type="number" name="mobile" class="form-control form-control-rounded" id="mobile" placeholder="Enter number" value="{{$worker->mobile}}" required>
+                     <input type="number" name="mobile" class="form-control form-control-rounded" id="mobile" placeholder="Enter number" value="{{$worker->mobile}}">
                      @if($errors->has('mobile'))
                      <div class="error text-danger">{{ $errors->first('mobile') }}</div>
                      @endif
@@ -67,7 +67,7 @@
                <div class="col-6">
                   <div class="form-group">
                      <label for="aadhar_no">Aadhar Number</label>
-                     <input type="text" name="aadhar_no" class="form-control form-control-rounded" id="aadhar_no" placeholder="Enter aadhar no" oninput="formatAadharInput(this)" value="{{$worker->aadhar_no}}" required>
+                     <input type="text" name="aadhar_no" class="form-control form-control-rounded" id="aadhar_no" placeholder="Enter aadhar no" oninput="formatAadharInput(this)" value="{{$worker->aadhar_no}}">
                      @if($errors->has('aadhar_no'))
                      <div class="error text-danger">{{ $errors->first('aadhar_no') }}</div>
                      @endif
@@ -236,18 +236,18 @@
             lname: {
                required: true,
             },
-            address: {
-               required: true,
-            },
-            mobile: {
-               required: true,
-            },
+            // address: {
+            //    required: true,
+            // },
+            // mobile: {
+            //    required: true,
+            // },
             designation: {
                required: true,
             },
-            aadhar_no: {
-               required: true,
-            }
+            // aadhar_no: {
+            //    required: true,
+            // }
          },
          submitHandler: function(form) {
             form.submit();

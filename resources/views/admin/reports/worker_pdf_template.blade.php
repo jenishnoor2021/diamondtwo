@@ -154,8 +154,8 @@ use App\Models\Process;
   <div class="container">
     <center>
       <h4>Worker Report</h4>
-      <h1 style="margin-top:-10px">HR DIMONDS</h1>
-      <p style="font-size:10px;margin-top:-12px">OFFICE NO.A-4,FIRST FLOOR,ENTW AP PARK,KANSHARA SHERI,<br />SURAT,SURAT,GUJRAT,395003 Gujarat</p>
+      <h1 style="margin-top:-10px">DHYANI IMPEX</h1>
+      <p style="font-size:10px;margin-top:-12px">E-102, FIRST FLOOR, Happyness Residency, BEHIND S HRUSHTI ROW HOUSE,<br /> Surat Surat, GUJARAT, 394107</p>
     </center>
     @foreach ($worker_detail as $worker)
     <div class="row">
@@ -271,7 +271,7 @@ use App\Models\Process;
         @endif
         @endforeach
         <tr>
-          <td colspan="7">
+          <td colspan="8">
             <b>
               <h4>Total Amount</h4>
             </b>
@@ -280,6 +280,8 @@ use App\Models\Process;
             <b>
               <h4>{{$sum}}</h4>
             </b>
+          </td>
+          <td colspan="2">
           </td>
         </tr>
       </tbody>

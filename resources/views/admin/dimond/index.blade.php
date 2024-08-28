@@ -43,12 +43,16 @@
                @endif
             </div>
 
-            <div class="card-action">
-               <div class="dropdown-menu-right">
-                  <a class="dropdown-item" style="background-color:darkorchid;" href="{{ route('admin.dimond.create') }}">
-                     <i class="fa fa-plus editable" style="font-size:15px;">&nbsp;ADD</i>
-                  </a>
-               </div>
+            <div class="card-action d-flex">
+               <!-- <div class="dropdown-menu-right"> -->
+               <a class="dropdown-item" style="background-color:darkorchid;" href="{{ route('admin.dimond.create') }}">
+                  <i class="fa fa-plus editable" style="font-size:15px;">&nbsp;ADD</i>
+               </a>
+               &nbsp;&nbsp;
+               <a class="dropdown-item" style="background-color:blue;" href="{{ route('admin.dimond.import') }}">
+                  Import
+               </a>
+               <!-- </div> -->
             </div>
          </div>
          <div class="table-responsive">

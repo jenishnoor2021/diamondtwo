@@ -20,7 +20,7 @@
 
   <li class="{{ (request()->segment(2) == 'hrdimond') ? 'active' : '' }}">
     <a href="/admin/hrdimond">
-      <i class="zmdi zmdi-format-list-bulleted"></i> <span>HR dimond</span>
+      <i class="zmdi zmdi-format-list-bulleted"></i> <span>DI dimond</span>
     </a>
   </li>
 

@@ -243,7 +243,7 @@ use Carbon\Carbon;
       font-weight: 400;
       line-height: 1.5em;
       overflow-x: hidden;
-      /*background-color: #f5f7ff;*/
+      background-color: #f5f7ff;
     }
 
     h1,
@@ -1787,9 +1787,8 @@ use Carbon\Carbon;
       }
     }
 
-    .cs-invoice_number {
-      font-size: 14px;
-    }
+
+    /*# sourceMappingURL=style.css.map */
   </style>
 </head>
 
@@ -1800,10 +1799,14 @@ use Carbon\Carbon;
         <div class="cs-invoice_head cs-type1 cs-mb25 column border-bottom-none">
           <table class="header">
             <tr>
+              <td width="25%">
+                <div class="cs-logo cs-mb5 cs-mr20"><img src="assets/img/logo.svg" alt="Logo"></div>
+              </td>
+              </td>
               <td width="40%">
                 <div class="cs-ml22">
                   <div class="cs-invoice_number cs-primary_color cs-mb0 cs-f16">
-                    <b class="cs-primary_color" style="margin-left:250px;display:block;width:100%;margin-bottom:40px;font-size:22px;">{{$companydetail->name}} Invoice</b>
+                    <b class="cs-primary_color">{{$companydetail->name}} Invoice</b>
                   </div>
                   <div
                     class="cs-invoice_number cs-primary_color cs-mb0 cs-f16 display-flex space-between  gap-20">
@@ -1811,19 +1814,21 @@ use Carbon\Carbon;
                     <p class="cs-mb0">{{$companydetail->gst_no}}</p>
                   </div>
                   <div class="cs-invoice_number cs-primary_color cs-mb0 cs-f16  display-flex space-between ">
-                    <p class="cs-primary_color cs-mb0"><b>Address:</b></p>
+                    <p class="cs-primary_color cs-mb0"><b>State:</b></p>
                     <p class="cs-mb0 cs-mr28">{{$companydetail->address}}</p>
+                  </div>
+                  <div class="cs-invoice_number cs-primary_color cs-mb0 cs-f16  display-flex space-between">
+                    <p class="cs-primary_color cs-mb0"><b>PAN:</b></p>
+                    <p class="cs-mb0 cs-mr15">{{$companydetail->pan_no}}</p>
                   </div>
                 </div>
               </td>
-              @php
-              $formattedDateTime = Carbon::parse($invoice->check_in)->format('d-m-Y g:i A');
-              $formattedDateTimeout = Carbon::parse($invoice->check_out)->format('d-m-Y g:i A');
-              @endphp
-              <td width="35%" style="vertical-align:top;padding-top:60px;">
+              <td width="35%">
                 <div class="cs-invoice_right cs-text_right">
                   <div
                     class="cs-invoice_number cs-primary_color cs-mb0 cs-f16  display-flex justify-content-flex-end">
+                    <!-- <p class="cs-primary_color"><b>Total:</b></p>
+                          <p class="cs-mb0">$ 5,670.00</p> -->
                   </div>
                   <div
                     class="cs-invoice_number cs-primary_color cs-mb0 cs-f16  display-flex justify-content-flex-end">
@@ -1835,16 +1840,52 @@ use Carbon\Carbon;
                     <p class="cs-primary_color cs-mb0"><b>Invoice No:</b></p>
                     <p class="cs-mb0">{{ $invoice->invoice_no }}</p>
                   </div>
-                  <div class="cs-invoice_number cs-primary_color cs-mb0 cs-f16  display-flex space-between">
-                  </div>
                 </div>
               </td>
             </tr>
           </table>
+          <!-- <div class="cs-invoice_left w-70 display-flex">
+            <div class="cs-logo cs-mb5 cs-mr20"><img src="assets/img/logo.svg" alt="Logo"></div>
+            <div class="cs-ml22">
+              <div class="cs-invoice_number cs-primary_color cs-mb0 cs-f16">
+                <b class="cs-primary_color">{{$companydetail->name}} Invoice</b>
+              </div>
+              <div
+                class="cs-invoice_number cs-primary_color cs-mb0 cs-f16 display-flex space-between  gap-20">
+                <p class="cs-mb0 cs-primary_color cs-mr15"><b>GSTIN:</b></p>
+                <p class="cs-mb0">{{$companydetail->gst_no}}</p>
+              </div>
+              <div class="cs-invoice_number cs-primary_color cs-mb0 cs-f16  display-flex space-between ">
+                <p class="cs-primary_color cs-mb0"><b>State:</b></p>
+                <p class="cs-mb0 cs-mr28"></p>
+              </div>
+              <div class="cs-invoice_number cs-primary_color cs-mb0 cs-f16  display-flex space-between">
+                <p class="cs-primary_color cs-mb0"><b>PAN:</b></p>
+                <p class="cs-mb0 cs-mr15">{{$companydetail->pan_no}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="cs-invoice_right cs-text_right">
+            <div
+              class="cs-invoice_number cs-primary_color cs-mb0 cs-f16  display-flex justify-content-flex-end">
+              <p class="cs-primary_color"><b>Total:</b></p>
+              <p class="cs-mb0">$ 5,670.00</p>
+            </div>
+            <div
+              class="cs-invoice_number cs-primary_color cs-mb0 cs-f16  display-flex justify-content-flex-end">
+              <p class="cs-primary_color cs-mb0"><b>Invoice Date:</b></p>
+              <p class="cs-mb0">{{$invoice->invoice_date}}</p>
+            </div>
+            <div
+              class="cs-invoice_number cs-primary_color cs-mb0 cs-f16  display-flex justify-content-flex-end">
+              <p class="cs-primary_color cs-mb0"><b>Invoice No:</b></p>
+              <p class="cs-mb0">{{ $invoice->invoice_no }}</p>
+            </div>
+          </div> -->
         </div>
         <div class="display-flex cs-text_center">
           <div class="cs-border-1"></div>
-          <h5 class="cs-width_12 cs-dip_green_color" style="padding-top:13px;">TAX INVOICE</h5>
+          <h5 class="cs-width_12 cs-dip_green_color">TAX INVOICE</h5>
           <div class="cs-border-1"></div>
         </div>
 
@@ -1853,9 +1894,9 @@ use Carbon\Carbon;
             <tr>
               <td width="30%">
                 <div class="cs-invoice_left cs-mr97">
-                  <b class="cs-primary_color" style="white-space:nowrap;">Customer Name:</b>
+                  <b class="cs-primary_color">Customer Name:</b>
                   <p class="cs-mb8">{{$partydetail->fname}}&nbsp;{{$partydetail->lname}}</p>
-                  <p><b class="cs-primary_color cs-semi_bold">Customer GSTIN:</b> <br>{{isset($partydetail->gst_no) ? $partydetail->gst_no : ''}}</p>
+                  <p><b class="cs-primary_color cs-semi_bold">Customer GSTIN:</b> <br>{{$partydetail->gst_no}}</p>
                 </div>
               </td>
               <td width="35%">
@@ -1876,10 +1917,55 @@ use Carbon\Carbon;
               </td>
             </tr>
           </table>
-
+          <!-- <div class="cs-invoice_left cs-mr97">
+            <b class="cs-primary_color">Customer Name:</b>
+            <p class="cs-mb8">{{$partydetail->fname}}&nbsp;{{$partydetail->lname}}</p>
+            <p><b class="cs-primary_color cs-semi_bold">Customer GSTIN:</b> <br>{{$partydetail->gst_no}}</p>
+          </div>
+          <div class="cs-invoice_right">
+            <b class="cs-primary_color">Billing Address:</b>
+            <p>
+              {{$partydetail->address}}
+            </p>
+          </div>
+          <div class="cs-invoice_right">
+            <b class="cs-primary_color">Shipping Address:</b>
+            <p>
+              {{$partydetail->address}}
+            </p>
+          </div> -->
         </div>
         <div class="cs-border"></div>
-
+        <table class="header">
+          <tr>
+            <td width="35%">
+              <p class="cs-mb20"><b class="cs-primary_color">County Of Supply:</b> <span
+                  class="cs-primary_color">India</span></p>
+            </td>
+            <td width="35%">
+              <p class="cs-mb20"><b class="cs-primary_color">Place Of Supply:</b> <span
+                  class="cs-primary_color">India</span></p>
+            </td>
+            <td width="30%">
+              <p class="cs-mb20"><b class="cs-primary_color">Due Date:</b> <span
+                  class="cs-primary_color">{{$invoice->due_date}}</span></p>
+            </td>
+          </tr>
+        </table>
+        <!-- <ul class="cs-grid_row cs-col_3 cs-mb0 cs-mt20">
+          <li>
+            <p class="cs-mb20"><b class="cs-primary_color">County Of Supply:</b> <span
+                class="cs-primary_color">India</span></p>
+          </li>
+          <li>
+            <p class="cs-mb20"><b class="cs-primary_color">Place Of Supply:</b> <span
+                class="cs-primary_color">India</span></p>
+          </li>
+          <li>
+            <p class="cs-mb20"><b class="cs-primary_color">Due Date:</b> <span
+                class="cs-primary_color">{{$invoice->due_date}}</span></p>
+          </li>
+        </ul> -->
         <div class="cs-border cs-mb30"></div>
         <div class="cs-table cs-style2 cs-f12">
           <div class="cs-round_border">
@@ -1887,14 +1973,14 @@ use Carbon\Carbon;
               <table>
                 <thead>
                   <tr class="cs-focus_bg">
-                    <th class="cs-width_1 cs-semi_bold cs-primary_color" style="border-right: 1px solid #eee;">#</th>
-                    <th class="cs-width_1 cs-semi_bold cs-primary_color" style="border-right: 1px solid #eee;">Item</th>
-                    <th class="cs-width_1 cs-semi_bold cs-primary_color" style="border-right: 1px solid #eee;">HSN / SAC</th>
-                    <th class="cs-width_1 cs-semi_bold cs-primary_color" style="border-right: 1px solid #eee;">Tax</th>
-                    <th class="cs-width_1 cs-semi_bold cs-primary_color" style="border-right: 1px solid #eee;">Qty</th>
-                    <th class="cs-width_1 cs-semi_bold cs-primary_color" style="border-right: 1px solid #eee;">Rate / Item</th>
-                    <th class="cs-width_1 cs-semi_bold cs-primary_color" style="border-right: 1px solid #eee;">Per</th>
-                    <th class="cs-width_1 cs-semi_bold cs-primary_color cs-text_right" style="border-right: 1px solid #eee;">Total</th>
+                    <th class="cs-width_1 cs-semi_bold cs-primary_color">#</th>
+                    <th class="cs-width_3 cs-semi_bold cs-primary_color">Item</th>
+                    <th class="cs-width_1 cs-semi_bold cs-primary_color">HSN / SAC</th>
+                    <th class="cs-width_1 cs-semi_bold cs-primary_color">Tax</th>
+                    <th class="cs-width_1 cs-semi_bold cs-primary_color">Qty</th>
+                    <th class="cs-width_1 cs-semi_bold cs-primary_color">Rate / Item</th>
+                    <th class="cs-width_1 cs-semi_bold cs-primary_color">Per</th>
+                    <th class="cs-width_1 cs-semi_bold cs-primary_color cs-text_right">Total</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1906,14 +1992,14 @@ use Carbon\Carbon;
                     $formattedDateTimeout = Carbon::parse($invoicede->check_out)->format('d-m-Y g:i A');
                     @endphp
                     <tr>
-                      <td style="border-right: 1px solid #eee;"><?= $i ?></td>
-                      <td style="border-right: 1px solid #eee;"><?= $invoicede->item ?></td>
-                      <td style="border-right: 1px solid #eee;"><?= $invoicede->hsn_no ?></td>
-                      <td style="border-right: 1px solid #eee;"><?= $invoicede->tax ?></td>
-                      <td style="border-right: 1px solid #eee;"><?= $invoicede->quntity ?></td>
-                      <td style="border-right: 1px solid #eee;"><?= $invoicede->rate ?></td>
-                      <td style="border-right: 1px solid #eee;"><?= $invoicede->per ?></td>
-                      <td class="cs-text_right cs-primary_color" style="border-right: 1px solid #eee;"><?= $invoicede->total_amount ?></td>
+                      <td><?= $i ?></td>
+                      <td><?= $invoicede->item ?></td>
+                      <td><?= $invoicede->hsn_no ?></td>
+                      <td><?= $invoicede->tax ?></td>
+                      <td><?= $invoicede->quntity ?></td>
+                      <td><?= $invoicede->rate ?></td>
+                      <td><?= $invoicede->per ?></td>
+                      <td class="cs-text_right cs-primary_color"><?= $invoicede->total_amount ?></td>
                     </tr>
                   <?php
                     $i++;
@@ -1929,7 +2015,7 @@ use Carbon\Carbon;
             <table>
               <tbody>
                 <tr class="cs-table_baseline">
-                  <td class="cs-width_6 cs-primary_color" style="font-size:12px;"> Here we can write a additional notes for
+                  <td class="cs-width_6 cs-primary_color"> Here we can write a additional notes for
                     the client to get a better understanding of this invoice.
 
                   </td>
@@ -1964,6 +2050,33 @@ use Carbon\Carbon;
           </div>
         </div>
       </div>
+      <!-- <div class="cs-invoice_btns cs-hide_print">
+        <a href="javascript:window.print()" class="cs-invoice_btn cs-color1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+            <path
+              d="M384 368h24a40.12 40.12 0 0040-40V168a40.12 40.12 0 00-40-40H104a40.12 40.12 0 00-40 40v160a40.12 40.12 0 0040 40h24"
+              fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+            <rect x="128" y="240" width="256" height="208" rx="24.32" ry="24.32" fill="none"
+              stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+            <path d="M384 128v-24a40.12 40.12 0 00-40-40H168a40.12 40.12 0 00-40 40v24" fill="none"
+              stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+            <circle cx="392" cy="184" r="24" />
+          </svg>
+          <span>Print</span>
+        </a>
+        <button id="download_btn" class="cs-invoice_btn cs-color2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+            <title>Download</title>
+            <path
+              d="M336 176h40a40 40 0 0140 40v208a40 40 0 01-40 40H136a40 40 0 01-40-40V216a40 40 0 0140-40h40"
+              fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="32" />
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="32" d="M176 272l80 80 80-80M256 48v288" />
+          </svg>
+          <span>Download</span>
+        </button>
+      </div> -->
     </div>
   </div>
 </body>

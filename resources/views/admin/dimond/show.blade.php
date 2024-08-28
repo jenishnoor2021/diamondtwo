@@ -280,80 +280,80 @@
                <div class="col-2">
                   <div class="form-group">
                      <label for="r_clarity">Clarity</label>
-                     <select name="r_clarity" id="r_clarity{{$process->id}}" class="custom-select form-control-rounded">
-                        <option value="">Select clarity</option>
-                        <option value="FL">FL</option>
-                        <option value="IF">IF</option>
-                        <option value="VVS1">VVS1</option>
-                        <option value="VVS2">VVS2</option>
-                        <option value="VS1">VS1</option>
-                        <option value="VS2">VS2</option>
-                        <option value="SI1">SI1</option>
-                        <option value="SI2">SI2</option>
-                        <option value="SI3">SI3</option>
-                        <option value="I1">I1</option>
-                        <option value="I2">I2</option>
-                        <option value="I3">I3</option>
+                     <select name="r_clarity" id="r_clarity" class="custom-select form-control-rounded">
+                        <option value="" {{$barcodeDetail->clarity == '' ? 'selected' : ''}}>Select clarity</option>
+                        <option value="FL" {{$barcodeDetail->clarity == 'FL' ? 'selected' : ''}}>FL</option>
+                        <option value="IF" {{$barcodeDetail->clarity == 'IF' ? 'selected' : ''}}>IF</option>
+                        <option value="VVS1" {{$barcodeDetail->clarity == 'VVS1' ? 'selected' : ''}}>VVS1</option>
+                        <option value="VVS2" {{$barcodeDetail->clarity == 'VVS2' ? 'selected' : ''}}>VVS2</option>
+                        <option value="VS1" {{$barcodeDetail->clarity == 'VS1' ? 'selected' : ''}}>VS1</option>
+                        <option value="VS2" {{$barcodeDetail->clarity == 'VS2' ? 'selected' : ''}}>VS2</option>
+                        <option value="SI1" {{$barcodeDetail->clarity == 'SI1' ? 'selected' : ''}}>SI1</option>
+                        <option value="SI2" {{$barcodeDetail->clarity == 'SI2' ? 'selected' : ''}}>SI2</option>
+                        <option value="SI3" {{$barcodeDetail->clarity == 'SI3' ? 'selected' : ''}}>SI3</option>
+                        <option value="I1" {{$barcodeDetail->clarity == 'I1' ? 'selected' : ''}}>I1</option>
+                        <option value="I2" {{$barcodeDetail->clarity == 'I2' ? 'selected' : ''}}>I2</option>
+                        <option value="I3" {{$barcodeDetail->clarity == 'I3' ? 'selected' : ''}}>I3</option>
                      </select>
                   </div>
                </div>
                <div class="col-2">
                   <div class="form-group">
                      <label for="r_color">Color</label>
-                     <select name="r_color" id="r_color{{$process->id}}" class="custom-select form-control-rounded">
-                        <option value="">Select color</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                        <option value="J">J</option>
-                        <option value="K">K</option>
-                        <option value="L">L</option>
-                        <option value="M">M</option>
-                        <option value="N">N</option>
-                        <option value="O">O</option>
-                        <option value="P">P</option>
-                        <option value="Q">Q</option>
-                        <option value="R">R</option>
-                        <option value="S">S</option>
+                     <select name="r_color" id="r_color" class="custom-select form-control-rounded">
+                        <option value="" {{$barcodeDetail->color == '' ? 'selected' : ''}}>Select color</option>
+                        <option value="D" {{$barcodeDetail->color == 'D' ? 'selected' : ''}}>D</option>
+                        <option value="E" {{$barcodeDetail->color == 'E' ? 'selected' : ''}}>E</option>
+                        <option value="F" {{$barcodeDetail->color == 'F' ? 'selected' : ''}}>F</option>
+                        <option value="G" {{$barcodeDetail->color == 'G' ? 'selected' : ''}}>G</option>
+                        <option value="H" {{$barcodeDetail->color == 'H' ? 'selected' : ''}}>H</option>
+                        <option value="I" {{$barcodeDetail->color == 'I' ? 'selected' : ''}}>I</option>
+                        <option value="J" {{$barcodeDetail->color == 'J' ? 'selected' : ''}}>J</option>
+                        <option value="K" {{$barcodeDetail->color == 'K' ? 'selected' : ''}}>K</option>
+                        <option value="L" {{$barcodeDetail->color == 'L' ? 'selected' : ''}}>L</option>
+                        <option value="M" {{$barcodeDetail->color == 'M' ? 'selected' : ''}}>M</option>
+                        <option value="N" {{$barcodeDetail->color == 'N' ? 'selected' : ''}}>N</option>
+                        <option value="O" {{$barcodeDetail->color == 'O' ? 'selected' : ''}}>O</option>
+                        <option value="P" {{$barcodeDetail->color == 'P' ? 'selected' : ''}}>P</option>
+                        <option value="Q" {{$barcodeDetail->color == 'Q' ? 'selected' : ''}}>Q</option>
+                        <option value="R" {{$barcodeDetail->color == 'R' ? 'selected' : ''}}>R</option>
+                        <option value="S" {{$barcodeDetail->color == 'S' ? 'selected' : ''}}>S</option>
                      </select>
                   </div>
                </div>
                <div class="col-2">
                   <div class="form-group">
                      <label for="r_cut">Cut</label>
-                     <select name="r_cut" id="r_cut{{$process->id}}" class="custom-select form-control-rounded">
-                        <option value="">Select cut</option>
-                        <option value="Ideal">Ideal</option>
-                        <option value="EX">EX</option>
-                        <option value="VG">VG</option>
-                        <option value="GD">GD</option>
+                     <select name="r_cut" id="r_cut" class="custom-select form-control-rounded">
+                        <option value="" {{$barcodeDetail->cut == '' ? 'selected' : ''}}>Select cut</option>
+                        <option value="Ideal" {{$barcodeDetail->cut == 'Ideal' ? 'selected' : ''}}>Ideal</option>
+                        <option value="EX" {{$barcodeDetail->cut == 'EX' ? 'selected' : ''}}>EX</option>
+                        <option value="VG" {{$barcodeDetail->cut == 'VG' ? 'selected' : ''}}>VG</option>
+                        <option value="GD" {{$barcodeDetail->cut == 'GD' ? 'selected' : ''}}>GD</option>
                      </select>
                   </div>
                </div>
                <div class="col-2">
                   <div class="form-group">
                      <label for="r_polish">Polish</label>
-                     <select name="r_polish" id="r_polish{{$process->id}}" class="custom-select form-control-rounded">
-                        <option value="">Select polish</option>
-                        <option value="Ideal">Ideal</option>
-                        <option value="EX">EX</option>
-                        <option value="VG">VG</option>
-                        <option value="GD">GD</option>
+                     <select name="r_polish" id="r_polish" class="custom-select form-control-rounded">
+                        <option value="" {{$barcodeDetail->polish == '' ? 'selected' : ''}}>Select polish</option>
+                        <option value="Ideal" {{$barcodeDetail->polish == 'Ideal' ? 'selected' : ''}}>Ideal</option>
+                        <option value="EX" {{$barcodeDetail->polish == 'EX' ? 'selected' : ''}}>EX</option>
+                        <option value="VG" {{$barcodeDetail->polish == 'VG' ? 'selected' : ''}}>VG</option>
+                        <option value="GD" {{$barcodeDetail->polish == 'GD' ? 'selected' : ''}}>GD</option>
                      </select>
                   </div>
                </div>
                <div class="col-2">
                   <div class="form-group">
                      <label for="r_symmetry">Symmetry</label>
-                     <select name="r_symmetry" id="r_symmetry{{$process->id}}" class="custom-select form-control-rounded">
-                        <option value="">Select symmetry</option>
-                        <option value="Ideal">Ideal</option>
-                        <option value="EX">EX</option>
-                        <option value="VG">VG</option>
-                        <option value="GD">GD</option>
+                     <select name="r_symmetry" id="r_symmetry" class="custom-select form-control-rounded">
+                        <option value="" {{$barcodeDetail->symmetry == '' ? 'selected' : ''}}>Select symmetry</option>
+                        <option value="Ideal" {{$barcodeDetail->symmetry == 'Ideal' ? 'selected' : ''}}>Ideal</option>
+                        <option value="EX" {{$barcodeDetail->symmetry == 'EX' ? 'selected' : ''}}>EX</option>
+                        <option value="VG" {{$barcodeDetail->symmetry == 'VG' ? 'selected' : ''}}>VG</option>
+                        <option value="GD" {{$barcodeDetail->symmetry == 'GD' ? 'selected' : ''}}>GD</option>
                      </select>
                   </div>
                </div>
