@@ -174,7 +174,6 @@ class AdminProcessController extends Controller
 
                 if ($rate_cut == 1) {
                     $request['price'] = 0;
-
                     Process::where(['dimonds_barcode' => $process->dimonds_barcode, 'worker_name' => $process->worker_name])->update(['ratecut' => 1]);
                 } elseif ($countprocess == 0) {
                     $request['price'] = $weight * ($get_rate);
