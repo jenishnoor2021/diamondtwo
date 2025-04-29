@@ -124,7 +124,9 @@ class AdminProcessController extends Controller
             }
 
             if ($dimonds->shape != 'Round') {
-                if ($weight < 2)
+                if ($weight < 1)
+                    $get_rate = !empty($getWorker->fancy_0) && $getWorker->fancy_0 != '' ? $getWorker->fancy_0 : 0;
+                else if ($weight >= 1.00 && $weight < 2)
                     $get_rate = !empty($getWorker->fancy_1) && $getWorker->fancy_1 != '' ? $getWorker->fancy_1 : 0;
                 else if ($weight >= 2 && $weight < 3)
                     $get_rate = !empty($getWorker->fancy_2) && $getWorker->fancy_2 != '' ? $getWorker->fancy_2 : 0;

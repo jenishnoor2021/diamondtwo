@@ -18,7 +18,7 @@ use App\Models\Process;
       <div class="card-body">
 
         <div class="card-title">
-          <h4>Worker Report</h4>
+          <h4>Worker Issue Report</h4>
         </div>
         <hr>
         @if (session('success'))
@@ -74,22 +74,10 @@ use App\Models\Process;
                 @endif
               </div>
             </div>
-            <div class="col-3">
-              <div class="form-group">
-                <label for="which_diamond">Worker</label>
-                <select name="which_diamond" id="which_diamond" class="custom-select form-control form-control-rounded" required>
-                  <option value="delevery_date">Deliverd</option>
-                  <option value="updated_at">Reguler</option>
-                </select>
-                @if($errors->has('worker_name'))
-                <div class="error text-danger">{{ $errors->first('worker_name') }}</div>
-                @endif
-              </div>
-            </div>
             <div class="col-2">
               <div class="form-group">
                 <label for="start_date">Start Date:</label>
-                <input type="date" name="start_date" class="form-control form-control-rounded" id="start_date" value="{{ old('start_date') }}" required>
+                <input type="date" name="start_date" class="form-control form-control-rounded" id="start_date" value="{{ request()->start_date }}" required>
                 @if($errors->has('start_date'))
                 <div class="error text-danger">{{ $errors->first('start_date') }}</div>
                 @endif
@@ -98,7 +86,7 @@ use App\Models\Process;
             <div class="col-2">
               <div class="form-group">
                 <label for="end_date">End Date:</label>
-                <input type="date" name="end_date" class="form-control form-control-rounded" id="end_date" value="{{ old('end_date') }}" required>
+                <input type="date" name="end_date" class="form-control form-control-rounded" id="end_date" value="{{ request()->end_date }}" required>
                 @if($errors->has('end_date'))
                 <div class="error text-danger">{{ $errors->first('end_date') }}</div>
                 @endif
@@ -106,10 +94,9 @@ use App\Models\Process;
             </div>
           </div>
           <div class="form-group">
-            <!-- <button type="submit" class="btn btn-light btn-round px-5">Generate PDF</button> -->
             <button type="button" id="get_list" class="btn btn-light btn-round px-5 mt-4">List</button>
-            <button type="button" id="download_list" class="btn btn-light btn-round px-5 mt-4">Download</button>
-            <a href="/admin/worker_report" class="btn btn-light btn-round px-5 mt-4">Clear</a>
+            <!-- <button type="button" id="download_list" class="btn btn-light btn-round px-5 mt-4">Download</button> -->
+            <a href="/admin/worker_issue_report" class="btn btn-light btn-round px-5 mt-4">Clear</a>
           </div>
         </form>
       </div>
@@ -153,13 +140,7 @@ use App\Models\Process;
               <?php
               $category = $_GET['category'];
               $getdimond = Dimond::where('barcode_number', $da->dimonds_barcode)->first();
-              $which_diamond = $_GET['which_diamond'];
-              if ($which_diamond == 'updated_at') {
-                $rw = $da->return_weight;
-              } else {
-                $returndimond = Process::where('dimonds_barcode', $da->dimonds_barcode)->where('designation', 'Grading')->latest()->first();
-                $rw = isset($returndimond->return_weight) ? $returndimond->return_weight : '';
-              }
+              $rw = $da->return_weight;
 
               if (isset($getdimond) && ($da->price != 0) && ($category == "Inner")) { ?>
                 <tr>
@@ -343,7 +324,7 @@ use App\Models\Process;
         return false;
       }
       // Change the form action for button 1
-      form.action = "{{ route('admin.worker.report') }}";
+      form.action = "{{ route('admin.workerissue.report') }}";
       // Submit the form
       form.submit();
     });
@@ -359,7 +340,7 @@ use App\Models\Process;
         return false;
       }
       // Change the form action for button 2
-      form.action = "{{ route('generate-worker-pdf') }}";
+      form.action = "{{ route('generate-worker-issue-pdf') }}";
       // Submit the form
       form.submit();
     });

@@ -48,11 +48,11 @@
     </a>
   </li>
 
-  <!-- <li class="{{ (request()->segment(2) == 'report') ? 'active' : '' }}">
-    <a href="/admin/report">
-      <i class="zmdi zmdi-format-list-bulleted"></i> <span>Reports</span>
+  <li class="{{ (request()->segment(2) == 'diamondprintlist') ? 'active' : '' }}">
+    <a href="/admin/diamondprintlist">
+      <i class="zmdi zmdi-format-list-bulleted"></i> <span>Download Barcode</span>
     </a>
-  </li> -->
+  </li>
 
   <li class="has-submenu {{ (request()->segment(2) == 'report') || (request()->segment(2) == 'worker_report') ? 'active' : '' }}">
     <a href="#">
@@ -67,6 +67,11 @@
       <li class="pt-2 pb-2 {{ (request()->segment(2) == 'worker_report') ? 'active' : '' }}">
         <a href="/admin/worker_report">
           <span>Worker Report</span>
+        </a>
+      </li>
+      <li class="pt-2 pb-2 {{ (request()->segment(2) == 'worker_issue_report') ? 'active' : '' }}">
+        <a href="/admin/worker_issue_report">
+          <span>Worker Issue Report</span>
         </a>
       </li>
       <li class="pt-2 pb-2 {{ (request()->segment(2) == 'party-report') ? 'active' : '' }}">

@@ -36,7 +36,7 @@
             <h4>Direct Issues Return</h4>
             <form method="POST" action="{{ route('admin.daily-status.store') }}">
                @csrf
-               <input type="text" id="inputField" name="inputField" placeholder="Search barcode" required>
+               <input type="text" id="inputField2" name="inputField" placeholder="Search barcode" required>
             </form>
             <h5></h5>
          </div>
@@ -96,7 +96,7 @@
 <script>
    document.addEventListener('DOMContentLoaded', function() {
       // Auto-focus on the input field when the page loads
-      document.getElementById('inputField').focus();
+      document.getElementById('inputField2').focus();
    });
 </script>
 @endsection

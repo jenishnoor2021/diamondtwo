@@ -115,7 +115,16 @@
                <div class="row">
                   <div class="col-3">
                      <div class="form-group">
-                        <label for="fancy_1">Rate (0.00 to 1.99)</label>
+                        <label for="fancy_0">Rate (0.00 to 0.99)</label>
+                        <input type="number" name="fancy_0" class="form-control form-control-rounded" id="fancy_0" placeholder="Enter amount" required>
+                        @if($errors->has('fancy_0'))
+                        <div class="error text-danger">{{ $errors->first('fancy_0') }}</div>
+                        @endif
+                     </div>
+                  </div>
+                  <div class="col-3">
+                     <div class="form-group">
+                        <label for="fancy_1">Rate (1.00 to 1.99)</label>
                         <input type="number" name="fancy_1" class="form-control form-control-rounded" id="fancy_1" placeholder="Enter amount" required>
                         @if($errors->has('fancy_1'))
                         <div class="error text-danger">{{ $errors->first('fancy_1') }}</div>
@@ -140,6 +149,8 @@
                         @endif
                      </div>
                   </div>
+               </div>
+               <div class="row">
                   <div class="col-3">
                      <div class="form-group">
                         <label for="fancy_4">Rate (4.00 to 4.99)</label>
@@ -149,8 +160,6 @@
                         @endif
                      </div>
                   </div>
-               </div>
-               <div class="row">
                   <div class="col-3">
                      <div class="form-group">
                         <label for="fancy_5">Rate (5.00 to 5.99)</label>

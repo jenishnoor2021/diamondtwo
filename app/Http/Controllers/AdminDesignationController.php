@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Validator;
 use App\Models\WorkerRate;
 use App\Models\Designation;
+use App\Models\Process;
+use App\Models\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -109,6 +111,18 @@ class AdminDesignationController extends Controller
             $workerrate->update(['designation' => $request->name]);
         }
 
+        $process = Process::where('designation', $designation->name)->get();
+
+        foreach ($process as $proces) {
+            $proces->update(['designation' => $request->name]);
+        }
+
+        $workers = Worker::where('designation', $designation->name)->get();
+
+        foreach ($workers as $worker) {
+            $worker->update(['designation' => $request->name]);
+        }
+
         $designation->update($request->all());
         return redirect('admin/designation')->with('success', "Update Record Successfully");
     }
@@ -128,6 +142,18 @@ class AdminDesignationController extends Controller
         foreach ($workerrates as $workerrate) {
             $workerrate->delete();
         }
+
+        // $process = Process::where('designation', $designation->name)->get();
+
+        // foreach ($process as $proces) {
+        //     $proces->delete();
+        // }
+
+        // $workers = Worker::where('designation', $designation->name)->get();
+
+        // foreach ($workers as $worker) {
+        //     $worker->delete();
+        // }
 
         $designation->delete();
 

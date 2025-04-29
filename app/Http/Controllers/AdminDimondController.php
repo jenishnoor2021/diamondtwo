@@ -12,12 +12,13 @@ use App\Models\Worker;
 use App\Models\Process;
 use App\Models\Designation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Redirect;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\HeadingRowImport;
+use Illuminate\Support\Facades\Redirect;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AdminDimondController extends Controller
 {

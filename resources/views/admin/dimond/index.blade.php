@@ -1,3 +1,7 @@
+<?php
+
+use App\Models\Process;
+?>
 @extends('layouts.admin')
 @section('style')
 <style>
@@ -32,7 +36,7 @@
             <div class="flex">
                <form method="GET" action="{{ route('dimond.detail') }}" class="mx-auto">
                   @csrf
-                  <input type="text" id="inputField" name="inputField" placeholder="Search barcode" required>
+                  <input type="text" id="inputField1" name="inputField" placeholder="Search barcode" required>
                </form>
                @if ($errors->any())
                <div class="alert alert-danger">
@@ -68,6 +72,7 @@
                      <!-- <th>Barcode show</th> -->
                      <th>Detail</th>
                      <th>Status</th>
+                     <th>Process</th>
                      <!-- <th>Shap</th>
                      <th>clarity</th>
                      <th>color</th>
@@ -79,6 +84,10 @@
                <tbody>
                   <tr>
                      @foreach($dimonds as $index =>$dimond)
+                     @php
+                     $process = Process::where('dimonds_id',$dimond->id)->latest()->first();
+                     $designation = isset($process) ? $process->designation : '';
+                     @endphp
                      <td>
                         <a href="/admin/print-image/{{$dimond->id}}" target="_blank" class="btn btn-secondary">Print</a>
                         <a href="{{route('admin.dimond.show', $dimond->barcode_number)}}"><i class="fa fa-eye" style="color:white;font-size:15px;background-color:rgba(255, 255, 255, 0.25);padding:8px;"></i></a>
@@ -106,6 +115,7 @@
                         </div>
                      </td>
                      <td>{!! $dimond->status !!}</td>
+                     <td>{{ $designation }}</td>
                      <!-- <td>{{$dimond->shape}}</td>
                      <td>{{$dimond->clarity}}</td>
                      <td>{{$dimond->color}}</td>
@@ -141,7 +151,7 @@
 <script>
    document.addEventListener('DOMContentLoaded', function() {
       // Auto-focus on the input field when the page loads
-      document.getElementById('inputField').focus();
+      document.getElementById('inputField1').focus();
    });
 
    function addappdata(cli_id) {

@@ -55,6 +55,18 @@ class AdminWorkerController extends Controller
             return Redirect::back()->withInput($input)->withErrors($validator);
         }
 
+        $input['round_1'] = $input['round_1'] ?? '1';
+        $input['round_2'] = $input['round_2'] ?? '1';
+        $input['round_3'] = $input['round_3'] ?? '1';
+        $input['fancy_0'] = $input['fancy_0'] ?? '1';
+        $input['fancy_1'] = $input['fancy_1'] ?? '1';
+        $input['fancy_2'] = $input['fancy_2'] ?? '1';
+        $input['fancy_3'] = $input['fancy_3'] ?? '1';
+        $input['fancy_4'] = $input['fancy_4'] ?? '1';
+        $input['fancy_5'] = $input['fancy_5'] ?? '1';
+        $input['fancy_6'] = $input['fancy_6'] ?? '1';
+        $input['fancy_7'] = $input['fancy_7'] ?? '1';
+
         Worker::create($input);
         return redirect('admin/worker')->with('success', "Add Record successfully");
     }
@@ -115,6 +127,18 @@ class AdminWorkerController extends Controller
         }
 
         Process::where('worker_name', $worker->fname)->update(['worker_name' => $input['fname']]);
+
+        $input['round_1'] = $input['round_1'] ?? '1';
+        $input['round_2'] = $input['round_2'] ?? '1';
+        $input['round_3'] = $input['round_3'] ?? '1';
+        $input['fancy_0'] = $input['fancy_0'] ?? '1';
+        $input['fancy_1'] = $input['fancy_1'] ?? '1';
+        $input['fancy_2'] = $input['fancy_2'] ?? '1';
+        $input['fancy_3'] = $input['fancy_3'] ?? '1';
+        $input['fancy_4'] = $input['fancy_4'] ?? '1';
+        $input['fancy_5'] = $input['fancy_5'] ?? '1';
+        $input['fancy_6'] = $input['fancy_6'] ?? '1';
+        $input['fancy_7'] = $input['fancy_7'] ?? '1';
 
         $worker->update($input);
         return redirect('admin/worker')->with('success', "update Record successfully");

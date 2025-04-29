@@ -208,13 +208,7 @@ use App\Models\Process;
         <?php
         $category = $_GET['category'];
         $getdimond = Dimond::where('barcode_number', $da->dimonds_barcode)->first();
-        $which_diamond = $_GET['which_diamond'];
-        if ($which_diamond == 'updated_at') {
-          $rw = $da->return_weight;
-        } else {
-          $returndimond = Process::where('dimonds_barcode', $da->dimonds_barcode)->where('designation', 'Grading')->latest()->first();
-          $rw = isset($returndimond->return_weight) ? $returndimond->return_weight : '';
-        }
+        $rw = $da->return_weight;
         if (isset($getdimond) && ($da->price != 0) && ($category != "Outter")) { ?>
           <tr>
             <td>{{$p}}</td>

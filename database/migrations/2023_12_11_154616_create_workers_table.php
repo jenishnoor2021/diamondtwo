@@ -30,6 +30,7 @@ class CreateWorkersTable extends Migration
             $table->string('round_1')->default(0);
             $table->string('round_2')->default(0);
             $table->string('round_3')->default(0);
+            $table->string('fancy_0')->default(0);
             $table->string('fancy_1')->default(0);
             $table->string('fancy_2')->default(0);
             $table->string('fancy_3')->default(0);

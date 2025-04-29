@@ -90,6 +90,8 @@ Route::group(['middleware' => ['auth', 'usersession']], function () {
     Route::get('admin/dimond/destroy/{id}', [AdminDimondController::class, 'destroy'])->name('admin.dimond.destroy');
     // Route::post('admin/dimond/updatestatus', [AdminDimondController::class, 'updateStatus'])->name('admin.dimond.updatestatus');
 
+    Route::get("admin/processed/{status}", [AdminController::class, 'indexProcessed'])->name('admin.dimond.processed');
+
     Route::get('admin/dimond/show', [AdminDimondController::class, 'dimondDetail'])->name('dimond.detail');
     Route::get("admin/hrdimond", [AdminDimondController::class, 'hrDimond'])->name('admin.hrdimond.list');
     Route::get("admin/print-image/{id}", [AdminDimondController::class, 'printImage'])->name('admin.dimond.printimage');
@@ -129,6 +131,9 @@ Route::group(['middleware' => ['auth', 'usersession']], function () {
     Route::get("admin/worker_report", [AdminExpenceController::class, 'workerReport'])->name('admin.worker.report');
     Route::get('admin/generate-worker-pdf', [AdminExpenceController::class, 'generateWorkerPdf'])->name('generate-worker-pdf');
 
+    Route::get("admin/worker_issue_report", [AdminExpenceController::class, 'workerIssueReport'])->name('admin.workerissue.report');
+    Route::get('admin/generate-worker-issue-pdf', [AdminExpenceController::class, 'generateWorkerIssuePdf'])->name('generate-worker-issue-pdf');
+
     Route::get('admin/print-slipe/{id}', [AdminExpenceController::class, 'printSlipe'])->name('print.slipe');
     Route::get('admin/repair/{id}', [AdminExpenceController::class, 'repair'])->name('repair.dimond');
 
@@ -159,6 +164,10 @@ Route::group(['middleware' => ['auth', 'usersession']], function () {
     Route::get('admin/daily-status/refresh', [AdminDailyController::class, 'statusRefresh'])->name('admin.daily-status.refresh');
 
     Route::get('admin/dimond_list', [AdminExpenceController::class, 'addDiamondList'])->name('admin.add-dimond.list');
+
+    Route::get('admin/diamondprintlist', [AdminExpenceController::class, 'diamondPrintList'])->name('admin.dimond-print.list');
+
+    Route::post('admin/download-barcodes-pdf', [AdminExpenceController::class, 'downloadPDF'])->name('downloadPDF');
 
     Route::get("admin/worker-barcode", [AdminWorkerBarcodeController::class, 'index'])->name('admin.worker-barcode.index');
     Route::get('admin/worker-barcode/show/{id}', [AdminWorkerBarcodeController::class, 'show'])->name('admin.worker-barcode.show');

@@ -347,6 +347,116 @@ class AdminExpenceController extends Controller
         return $pdf->download('generate-' . $worker_name . '-report.pdf');
     }
 
+    public function workerIssueReport(Request $request)
+    {
+        $designations = Designation::get();
+
+        $designation = $request->input('designation');
+        $worker_name = $request->input('worker_name');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $category = $request->input('category');
+
+        $worker_detail = [];
+        $data = [];
+
+        if (isset($startDate) && isset($endDate)) {
+            if (isset($category) && $category != 'all') {
+                $categorydesignation = Designation::where('category', $category)->pluck('name')->toArray();
+                if ($designation != 'all') {
+                    if ($worker_name != 'all') {
+                        $worker_detail = Worker::where(['designation' => $designation, 'fname' => $worker_name])->get();
+                        $data = Process::whereDate('issue_date', '>=', $startDate)->whereDate('issue_date', '<=', $endDate)->whereNotNull('return_weight')->where(['designation' => $designation, 'worker_name' => $worker_name])->get();
+                    } else {
+                        $worker_detail = Worker::where('designation', $designation)->get();
+                        $data = Process::whereDate('issue_date', '>=', $startDate)->whereDate('issue_date', '<=', $endDate)->whereNotNull('return_weight')->where(['designation' => $designation])->get();
+                    }
+                } else {
+                    $worker_detail = Worker::whereIn('designation', $categorydesignation)->get();
+                    $data = Process::whereDate('issue_date', '>=', $startDate)->whereDate('issue_date', '<=', $endDate)->whereNotNull('return_weight')->whereIn('designation', $categorydesignation)->get();
+                }
+            } else {
+                if (isset($designation) && $designation != 'all') {
+                    if ($worker_name != 'all') {
+                        $worker_detail = Worker::where(['designation' => $designation, 'fname' => $worker_name])->get();
+                        $data = Process::whereDate('issue_date', '>=', $startDate)->whereDate('issue_date', '<=', $endDate)->whereNotNull('return_weight')->where(['designation' => $designation, 'worker_name' => $worker_name])->get();
+                    } else {
+                        $worker_detail = Worker::where('designation', $designation)->get();
+                        $data = Process::whereDate('issue_date', '>=', $startDate)->whereDate('issue_date', '<=', $endDate)->whereNotNull('return_weight')->where(['designation' => $designation])->get();
+                    }
+                } else {
+                    if (isset($startDate) && isset($endDate)) {
+                        $worker_detail = Worker::get();
+                        $data = Process::whereDate('issue_date', '>=', $startDate)->whereDate('issue_date', '<=', $endDate)->whereNotNull('return_weight')->get();
+                    }
+                }
+            }
+        }
+
+        return view('admin.reports.worker_issue_report', compact('designations', 'data', 'worker_detail'));
+    }
+
+    public function generateWorkerIssuePdf(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'designation' => 'required',
+            'worker_name' => 'required',
+            'category' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::back()->withInput($request->all())->withErrors($validator);
+        }
+
+        $designation = $request->input('designation');
+        $worker_name = $request->input('worker_name');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $category = $request->input('category');
+
+        $worker_detail = [];
+        $data = [];
+
+        if (isset($startDate) && isset($endDate)) {
+            if (isset($category) && $category != 'all') {
+                $categorydesignation = Designation::where('category', $category)->pluck('name')->toArray();
+                if ($designation != 'all') {
+                    if ($worker_name != 'all') {
+                        $worker_detail = Worker::where(['designation' => $designation, 'fname' => $worker_name])->get();
+                        $data = Process::whereDate('issue_date', '>=', $startDate)->whereDate('issue_date', '<=', $endDate)->whereNotNull('return_weight')->where(['designation' => $designation, 'worker_name' => $worker_name])->get();
+                    } else {
+                        $worker_detail = Worker::where('designation', $designation)->get();
+                        $data = Process::whereDate('issue_date', '>=', $startDate)->whereDate('issue_date', '<=', $endDate)->whereNotNull('return_weight')->where(['designation' => $designation])->get();
+                    }
+                } else {
+                    $worker_detail = Worker::whereIn('designation', $categorydesignation)->get();
+                    $data = Process::whereDate('issue_date', '>=', $startDate)->whereDate('issue_date', '<=', $endDate)->whereNotNull('return_weight')->whereIn('designation', $categorydesignation)->get();
+                }
+            } else {
+                if (isset($designation) && $designation != 'all') {
+                    if ($worker_name != 'all') {
+                        $worker_detail = Worker::where(['designation' => $designation, 'fname' => $worker_name])->get();
+                        $data = Process::whereDate('issue_date', '>=', $startDate)->whereDate('issue_date', '<=', $endDate)->whereNotNull('return_weight')->where(['designation' => $designation, 'worker_name' => $worker_name])->get();
+                    } else {
+                        $worker_detail = Worker::where('designation', $designation)->get();
+                        $data = Process::whereDate('issue_date', '>=', $startDate)->whereDate('issue_date', '<=', $endDate)->whereNotNull('return_weight')->where(['designation' => $designation])->get();
+                    }
+                } else {
+                    if (isset($startDate) && isset($endDate)) {
+                        $worker_detail = Worker::get();
+                        $data = Process::whereDate('issue_date', '>=', $startDate)->whereDate('issue_date', '<=', $endDate)->whereNotNull('return_weight')->get();
+                    }
+                }
+            }
+        }
+
+        $pdf = PDF::loadView('admin.reports.worker_issue_pdf_template', compact('data', 'worker_name', 'worker_detail'));
+        // Session::flash('success', "Download Record Successfully");
+        return $pdf->download('generate-' . $worker_name . '-report.pdf');
+    }
+
     public function partyReport(Request $request)
     {
         $partyLists = Party::where('is_active', 1)->get();
@@ -440,7 +550,7 @@ class AdminExpenceController extends Controller
                 $da->dimond_name,
                 $da->weight,
                 isset($process->return_weight) ? $process->return_weight : '',
-                isset($process->r_shape) ? $process->r_shape : '',
+                isset($da->shape) ? $da->shape : '',
                 isset($process->r_clarity) ? $process->r_clarity : '',
                 isset($process->r_color) ? $process->r_color : '',
                 isset($process->r_cut) ? $process->r_cut : '',
@@ -918,5 +1028,39 @@ class AdminExpenceController extends Controller
             $data = Dimond::whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get();
         }
         return view('admin.reports.adddimondlist', compact('data'));
+    }
+
+    public function diamondPrintList(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $data = [];
+
+        if (isset($startDate) && isset($endDate)) {
+            $data = Dimond::whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get();
+        }
+        return view('admin.dimond.dimondprintlist', compact('data'));
+    }
+
+    public function downloadPDF(Request $request)
+    {
+        $request->validate([
+            'selected_diamonds' => 'required|array',
+            'selected_diamonds.*' => 'exists:dimonds,id',
+        ], [
+            'selected_diamonds.required' => 'Please select at least one diamond to download.',
+            'selected_diamonds.*.exists' => 'One or more of the selected diamonds do not exist.',
+        ]);
+        // Get selected diamond IDs
+        $selectedDiamonds = $request->input('selected_diamonds');
+
+        // Fetch selected diamonds data
+        $data = Dimond::whereIn('id', $selectedDiamonds)->get();
+
+        return view('admin.dimond.printSlip', compact('data'));
+
+        // $pdf = PDF::loadView('admin.dimond.printSlip', compact('data'));
+
+        // return $pdf->download('barcodes-list.pdf');
     }
 }
