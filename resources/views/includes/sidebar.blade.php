@@ -84,6 +84,11 @@
           <span>Party Filter</span>
         </a>
       </li>
+      <li class="pt-2 pb-2 {{ (request()->segment(2) == 'vg-report') ? 'active' : '' }}">
+        <a href="/admin/vg-report">
+          <span>VG Report</span>
+        </a>
+      </li>
       <li class="pt-2 pb-2 {{ (request()->segment(2) == 'summary') ? 'active' : '' }}">
         <a href="/admin/summary">
           <span>Summary</span>

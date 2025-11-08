@@ -703,6 +703,92 @@ class AdminExpenceController extends Controller
         return $pdf->download('summary-report.pdf');
     }
 
+
+    public function vgReport(Request $request)
+    {
+        $partyLists = Party::where('is_active', 1)->get();
+
+        $partyId = $request->input('party_id');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $dimonds = collect(); // default empty collection
+        $filterApplied = ($partyId && $partyId != 'All') || $startDate || $endDate;
+
+        if ($filterApplied) {
+            // Get diamond IDs that have a Grading row with r_cut = 'VG'
+            $vgDiamondIds = Process::where('designation', 'Grading')
+                ->where('r_cut', 'VG')
+                ->pluck('dimonds_id')   // adapt column name if it's different
+                ->unique()
+                ->toArray();
+
+            // If there are no VG diamonds, short-circuit to empty collection
+            if (!empty($vgDiamondIds)) {
+                // Build diamonds query but filter by vg IDs
+                $dimondsQuery = Dimond::whereIn('id', $vgDiamondIds);
+
+                if (isset($partyId) && $partyId != 'All') {
+                    $dimondsQuery->where('parties_id', $partyId);
+                    $partyLists = Party::where('id', $partyId)->where('is_active', 1)->get();
+                }
+
+                if ($startDate) {
+                    if ($endDate) {
+                        $dimondsQuery->whereBetween('delevery_date', [$startDate, $endDate]);
+                    } else {
+                        $dimondsQuery->whereDate('delevery_date', '>=', $startDate);
+                    }
+                }
+
+                // Fetch only diamonds that match filters AND have VG grading
+                $dimonds = $dimondsQuery->get();
+
+                if ($dimonds->isNotEmpty()) {
+
+                    $diamondIds = $dimonds->pluck('id')->toArray();
+
+                    // Fetch all POLISH workers in one go
+                    $polishWorkers = Process::whereIn('dimonds_id', $diamondIds)
+                        ->where('designation', 'POLISH')->orWhere('designation', 'POLISHOT')
+                        ->get()
+                        ->groupBy('dimonds_id');
+
+                    // Attach workers to each diamond
+                    $dimonds->each(function ($dimond) use ($polishWorkers) {
+                        $dimond->workers = collect();
+
+                        if (isset($polishWorkers[$dimond->id])) {
+                            $dimond->workers = $polishWorkers[$dimond->id]
+                                ->pluck('worker_name')
+                                ->unique()
+                                ->values();
+                        }
+                    });
+                }
+
+                if ($partyId == 'All') {
+                    $dimonds = $dimonds->groupBy('parties_id');
+                }
+            }
+        }
+
+        return view('admin.reports.vg_report', compact('partyLists', 'dimonds', 'partyId'));
+    }
+
+    public function vgReportExport(Request $request)
+    {
+        // Same logic as vgReport but no need for view UI
+        $pdfView = $this->vgReport($request);
+        $data = $pdfView->getData();
+
+        $pdf = Pdf::loadView('admin.reports.vg_report_template', $data);
+        return $pdf->download('vg-report.pdf');
+
+        // $pdf = Pdf::loadView('admin.reports.vg_report_template', compact('partyLists', 'dimonds', 'partyId'));
+        // return $pdf->download('vg-report.pdf');
+    }
+
     // public function workerSummary(Request $request)
     // {
     //     $designations = Designation::get();

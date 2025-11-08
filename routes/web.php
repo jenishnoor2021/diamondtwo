@@ -169,6 +169,9 @@ Route::group(['middleware' => ['auth', 'usersession']], function () {
 
     Route::post('admin/download-barcodes-pdf', [AdminExpenceController::class, 'downloadPDF'])->name('downloadPDF');
 
+    Route::get('admin/vg-report', [AdminExpenceController::class, 'vgReport'])->name('admin.vg-report');
+    Route::get('admin/vg-report-export', [AdminExpenceController::class, 'vgReportExport'])->name('admin.vg-report.export');
+
     Route::get("admin/worker-barcode", [AdminWorkerBarcodeController::class, 'index'])->name('admin.worker-barcode.index');
     Route::get('admin/worker-barcode/show/{id}', [AdminWorkerBarcodeController::class, 'show'])->name('admin.worker-barcode.show');
     Route::get('admin/worker-barcode/create', [AdminWorkerBarcodeController::class, 'create'])->name('admin.worker-barcode.create');
