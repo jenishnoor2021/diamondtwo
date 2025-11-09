@@ -161,16 +161,23 @@
             <thead>
               <tr>
                 <th>Dimond Name</th>
-                <th>Barcode</th>
+                <!-- <th>Barcode</th> -->
                 <th>Workers (POLISH)</th>
                 <th>Delivery Date</th>
+                <th>Return Weight</th>
+                <th>Cut</th>
+                <th>Shape</th>
+                <th>Color</th>
+                <th>Clarity</th>
+                <th>Polish</th>
+                <th>Symmetry</th>
               </tr>
             </thead>
             <tbody>
               @foreach ($dimonds as $dimond)
               <tr>
                 <td>{{ $dimond->dimond_name }}</td>
-                <td>{{ $dimond->barcode_number }}</td>
+                <!-- <td>{{ $dimond->barcode_number }}</td> -->
                 <td>
                   @if($dimond->workers->isNotEmpty())
                   {{ implode(', ', $dimond->workers->toArray()) }}
@@ -179,6 +186,13 @@
                   @endif
                 </td>
                 <td>{{ $dimond->delevery_date }}</td>
+                <td>{{ $dimond->return_weight }}</td>
+                <td>{{ $dimond->r_cut }}</td>
+                <td>{{ $dimond->shape }}</td>
+                <td>{{ $dimond->r_color }}</td>
+                <td>{{ $dimond->r_clarity }}</td>
+                <td>{{ $dimond->r_polish }}</td>
+                <td>{{ $dimond->r_symmetry }}</td>
               </tr>
               @endforeach
             </tbody>
@@ -193,18 +207,32 @@
             <thead>
               <tr>
                 <th>Diamond Name</th>
-                <th>Barcode</th>
+                <!-- <th>Barcode</th> -->
                 <th>Workers (POLISH)</th>
                 <th>Delivery Date</th>
+                <th>Return Weight</th>
+                <th>Cut</th>
+                <th>Shape</th>
+                <th>Color</th>
+                <th>Clarity</th>
+                <th>Polish</th>
+                <th>Symmetry</th>
               </tr>
             </thead>
             <tbody>
               @foreach ($partyDimonds as $dimond)
               <tr>
                 <td>{{ $dimond->dimond_name }}</td>
-                <td>{{ $dimond->barcode_number }}</td>
+                <!-- <td>{{ $dimond->barcode_number }}</td> -->
                 <td>{{ $dimond->workers->isNotEmpty() ? implode(', ', $dimond->workers->toArray()) : '-' }}</td>
                 <td>{{ $dimond->delevery_date }}</td>
+                <td>{{ $dimond->return_weight }}</td>
+                <td>{{ $dimond->r_cut }}</td>
+                <td>{{ $dimond->shape }}</td>
+                <td>{{ $dimond->r_color }}</td>
+                <td>{{ $dimond->r_clarity }}</td>
+                <td>{{ $dimond->r_polish }}</td>
+                <td>{{ $dimond->r_symmetry }}</td>
               </tr>
               @endforeach
             </tbody>

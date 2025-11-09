@@ -750,12 +750,17 @@ class AdminExpenceController extends Controller
 
                     // Fetch all POLISH workers in one go
                     $polishWorkers = Process::whereIn('dimonds_id', $diamondIds)
-                        ->where('designation', 'POLISH')->orWhere('designation', 'POLISHOT')
+                        ->whereIn('designation', ['POLISH', 'POLISHOT'])
                         ->get()
                         ->groupBy('dimonds_id');
 
+                    $gradingData = Process::whereIn('dimonds_id', $diamondIds)
+                        ->where('designation', 'Grading')
+                        ->get()
+                        ->keyBy('dimonds_id');
+
                     // Attach workers to each diamond
-                    $dimonds->each(function ($dimond) use ($polishWorkers) {
+                    $dimonds->each(function ($dimond) use ($polishWorkers, $gradingData) {
                         $dimond->workers = collect();
 
                         if (isset($polishWorkers[$dimond->id])) {
@@ -763,6 +768,27 @@ class AdminExpenceController extends Controller
                                 ->pluck('worker_name')
                                 ->unique()
                                 ->values();
+                        }
+
+                        // Grading data
+                        $grading = $gradingData->get($dimond->id);
+                        if ($grading) {
+                            $dimond->return_weight = $grading->return_weight;
+                            $dimond->r_cut = $grading->r_cut;
+                            $dimond->r_shape = $grading->r_shape;
+                            $dimond->r_color = $grading->r_color;
+                            $dimond->r_clarity = $grading->r_clarity;
+                            $dimond->r_polish = $grading->r_polish;
+                            $dimond->r_symmetry = $grading->r_symmetry;
+                        } else {
+                            // Default blank if not found
+                            $dimond->return_weight = '';
+                            $dimond->r_cut = '';
+                            $dimond->r_shape = '';
+                            $dimond->r_color = '';
+                            $dimond->r_clarity = '';
+                            $dimond->r_polish = '';
+                            $dimond->r_symmetry = '';
                         }
                     });
                 }

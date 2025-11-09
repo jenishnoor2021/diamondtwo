@@ -255,7 +255,7 @@
                <div class="col-2">
                   <div class="form-group">
                      <label for="r_shape">Shape</label>
-                     <input type="text" name="r_shape" class="form-control form-control-rounded" value="{{$barcodeDetail->shape}}" disabled>
+                     <input type="text" name="r_shape" class="form-control form-control-rounded" value="{{$barcodeDetail->shape}}" readonly>
                      <!-- <select name="r_shape" id="r_shape{{$process->id}}" class="custom-select form-control-rounded" style="width:100%">
                         <option value="">Select shape</option>
                         <option value="Round">Round</option>
