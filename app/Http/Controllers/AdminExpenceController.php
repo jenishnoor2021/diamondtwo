@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Response;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\DiamondSlipStyledExport;
 
 class AdminExpenceController extends Controller
 {
@@ -1095,6 +1097,7 @@ class AdminExpenceController extends Controller
                     'cut' => $dimond->cut,
                     'polish' => $dimond->polish,
                     'symmetry' => $dimond->symmetry,
+                    'amount' => $dimond->amount,
                     'created_at' => $dimond->created_at,
                     'delivery_date' => Carbon::parse($dimond->delevery_date)->format('d-m-Y'),
                 ];
@@ -1103,10 +1106,25 @@ class AdminExpenceController extends Controller
             // Generate PDF using selected rows data
             $pdf = PDF::loadView('admin.reports.party_slip_template', ['process' => $process, 'party_name' => $party_name]);
 
-            return $pdf->download('party_slip.pdf');
+            return $pdf->download('diamond_slip.pdf');
         }
 
         return redirect()->back()->with('error', "Please select Ids");
+    }
+
+    public function diamondSlipExcel(Request $request)
+    {
+        $selectedRows = $request->input('selectedIds');
+        $selectedIds = explode(',', $selectedRows);
+
+        if (empty($selectedRows)) {
+            return redirect()->back()->with('error', "Please select Ids");
+        }
+
+        $party = Party::where('id', $request->input('parties_id'))->first();
+        $party_name = $party->fname ?? 'Party';
+
+        return Excel::download(new DiamondSlipStyledExport($selectedIds, $party_name), 'diamond_slip.xlsx');
     }
 
     public function hrExport(Request $request)

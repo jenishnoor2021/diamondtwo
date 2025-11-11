@@ -219,6 +219,7 @@ Route::group(['middleware' => ['auth', 'usersession']], function () {
 
     Route::get('admin/import-diamonds-page', [App\Http\Controllers\AdminDimondController::class, 'importPage'])->name('admin.dimond.import');
     Route::post('admin/import-diamonds', [App\Http\Controllers\AdminDimondController::class, 'import'])->name('import.diamonds');
+    Route::post('/admin/diamondslip-excel', [AdminExpenceController::class, 'diamondSlipExcel'])->name('admin.diamondslipexcel');
 });
 
 //Clear Cache facade value:

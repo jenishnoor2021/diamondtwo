@@ -78,18 +78,19 @@ use Carbon\Carbon;
           <table id="" class="table align-items-center table-flush table-borderless">
             <thead>
               <tr>
-                <th>Select</th>
+                <th><input type="checkbox" id="selectAll"> All</th>
                 <th>Dimond Name</th>
                 <th>Row Weight</th>
                 <th>Polished Weight</th>
                 <!-- <th>Barcode</th> -->
                 <!-- <th>Status</th> -->
                 <th>Shap</th>
-                <th>clarity</th>
-                <th>color</th>
-                <!-- <th>cut</th> -->
+                <!-- <th>clarity</th> -->
+                <!-- <th>color</th> -->
+                <th>cut</th>
                 <!-- <th>polish</th> -->
                 <!-- <th>symmetry</th> -->
+                <th>Amount</th>
                 <th>Deliverd</th>
               </tr>
             </thead>
@@ -98,6 +99,7 @@ use Carbon\Carbon;
                 @csrf
                 <button type="submit">Generate PDF</button>
                 <input type="hidden" id="selectedIds" name="selectedIds">
+                <button type="submit" formaction="{{ route('admin.diamondslipexcel') }}">Generate Excel</button>
                 <tr>
                   @foreach($dimonds as $index =>$dimond)
                   <input type="hidden" id="parties_id" name="parties_id" value="{{$dimond->parties_id}}">
@@ -109,11 +111,12 @@ use Carbon\Carbon;
                   <!-- <td>{!! $dimond->barcode_number !!}</td> -->
                   <!-- <td>{!! $dimond->status !!}</td> -->
                   <td>{{$dimond->shape}}</td>
-                  <td>{{$dimond->clarity}}</td>
-                  <td>{{$dimond->color}}</td>
-                  <!-- <td>{{$dimond->cut}}</td> -->
+                  <!-- <td>{{$dimond->clarity}}</td> -->
+                  <!-- <td>{{$dimond->color}}</td> -->
+                  <td>{{$dimond->cut}}</td>
                   <!-- <td>{{$dimond->polish}}</td> -->
                   <!-- <td>{{$dimond->symmetry}}</td> -->
+                  <td>{{$dimond->amount}}</td>
                   <td>{{ \Carbon\Carbon::parse($dimond->delevery_date)->format('d-m-Y') }}</td>
                 </tr>
                 @endforeach
@@ -134,22 +137,39 @@ use Carbon\Carbon;
 @section('script')
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    var selectedIds = [];
+    const checkboxes = document.querySelectorAll('.checkbox');
+    const selectAll = document.getElementById('selectAll');
+    const selectedIdsInput = document.getElementById('selectedIds');
+    let selectedIds = [];
 
-    var checkboxes = document.querySelectorAll('.checkbox');
+    // ✅ Select All Checkbox Logic
+    selectAll.addEventListener('change', function() {
+      selectedIds = [];
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = this.checked;
+        if (this.checked) {
+          selectedIds.push(checkbox.value);
+        }
+      });
+      selectedIdsInput.value = selectedIds.join(',');
+    });
 
-    checkboxes.forEach(function(checkbox) {
+    // ✅ Individual Checkbox Logic
+    checkboxes.forEach(checkbox => {
       checkbox.addEventListener('change', function() {
         if (this.checked) {
           selectedIds.push(this.value);
         } else {
-          var index = selectedIds.indexOf(this.value);
-          if (index !== -1) {
-            selectedIds.splice(index, 1);
-          }
+          selectedIds = selectedIds.filter(id => id !== this.value);
+          selectAll.checked = false; // Uncheck "Select All" if one is deselected
         }
 
-        document.getElementById('selectedIds').value = selectedIds.join(',');
+        // If all individual boxes are checked, also check "Select All"
+        if (checkboxes.length === document.querySelectorAll('.checkbox:checked').length) {
+          selectAll.checked = true;
+        }
+
+        selectedIdsInput.value = selectedIds.join(',');
       });
     });
   });
