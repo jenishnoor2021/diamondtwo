@@ -66,7 +66,7 @@
             <div class="row">
                <div class="col-4">
                   <div class="form-group">
-                     <label for="round_1">Rate (Small than 2.99)</label>
+                     <label for="round_1">Rate (Small than 0.99)</label>
                      <input type="number" name="round_1" class="form-control form-control-rounded" id="round_1" placeholder="Enter amount" value="{{$party->round_1}}">
                      @if($errors->has('round_1'))
                      <div class="error text-danger">{{ $errors->first('round_1') }}</div>
@@ -75,7 +75,7 @@
                </div>
                <div class="col-4">
                   <div class="form-group">
-                     <label for="round_2">Rate (3.00 to 9.99)</label>
+                     <label for="round_2">Rate (1.00 to 2.00)</label>
                      <input type="number" name="round_2" class="form-control form-control-rounded" id="round_2" placeholder="Enter amount" value="{{$party->round_2}}">
                      @if($errors->has('round_2'))
                      <div class="error text-danger">{{ $errors->first('round_2') }}</div>
@@ -84,10 +84,39 @@
                </div>
                <div class="col-4">
                   <div class="form-group">
-                     <label for="round_3">Rate (10.00 to more)</label>
+                     <label for="round_3">Rate (2.01 to 3.00)</label>
                      <input type="number" name="round_3" class="form-control form-control-rounded" id="round_3" placeholder="Enter amount" value="{{$party->round_3}}">
                      @if($errors->has('round_3'))
                      <div class="error text-danger">{{ $errors->first('round_3') }}</div>
+                     @endif
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-4">
+                  <div class="form-group">
+                     <label for="round_4">Rate (3.01 to 5.00)</label>
+                     <input type="number" name="round_4" class="form-control form-control-rounded" id="round_4" placeholder="Enter amount" value="{{$party->round_4}}">
+                     @if($errors->has('round_4'))
+                     <div class="error text-danger">{{ $errors->first('round_4') }}</div>
+                     @endif
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="form-group">
+                     <label for="round_5">Rate (5.01 to 7.00)</label>
+                     <input type="number" name="round_5" class="form-control form-control-rounded" id="round_5" placeholder="Enter amount" value="{{$party->round_5}}">
+                     @if($errors->has('round_5'))
+                     <div class="error text-danger">{{ $errors->first('round_5') }}</div>
+                     @endif
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="form-group">
+                     <label for="round_6">Rate (7 to more)</label>
+                     <input type="number" name="round_6" class="form-control form-control-rounded" id="round_6" placeholder="Enter amount" value="{{$party->round_6}}">
+                     @if($errors->has('round_6'))
+                     <div class="error text-danger">{{ $errors->first('round_6') }}</div>
                      @endif
                   </div>
                </div>
@@ -98,7 +127,7 @@
             <div class="row">
                <div class="col-4">
                   <div class="form-group">
-                     <label for="fancy_1">Rate (Small than 2.99)</label>
+                     <label for="fancy_1">Rate (Small than 0.50)</label>
                      <input type="number" name="fancy_1" class="form-control form-control-rounded" id="fancy_1" placeholder="Enter amount" value="{{$party->fancy_1}}">
                      @if($errors->has('fancy_1'))
                      <div class="error text-danger">{{ $errors->first('fancy_1') }}</div>
@@ -107,7 +136,7 @@
                </div>
                <div class="col-4">
                   <div class="form-group">
-                     <label for="fancy_2">Rate (3.00 to 9.99)</label>
+                     <label for="fancy_2">Rate (0.50 to 0.99)</label>
                      <input type="number" name="fancy_2" class="form-control form-control-rounded" id="fancy_2" placeholder="Enter amount" value="{{$party->fancy_2}}">
                      @if($errors->has('fancy_2'))
                      <div class="error text-danger">{{ $errors->first('fancy_2') }}</div>
@@ -116,10 +145,39 @@
                </div>
                <div class="col-4">
                   <div class="form-group">
-                     <label for="fancy_3">Rate (10.00 to more)</label>
+                     <label for="fancy_3">Rate (1.00 to 2.00)</label>
                      <input type="number" name="fancy_3" class="form-control form-control-rounded" id="fancy_3" placeholder="Enter amount" value="{{$party->fancy_3}}">
                      @if($errors->has('fancy_3'))
                      <div class="error text-danger">{{ $errors->first('fancy_3') }}</div>
+                     @endif
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-4">
+                  <div class="form-group">
+                     <label for="fancy_4">Rate (2.01 to 5.00)</label>
+                     <input type="number" name="fancy_4" class="form-control form-control-rounded" id="fancy_4" placeholder="Enter amount" value="{{$party->fancy_4}}">
+                     @if($errors->has('fancy_4'))
+                     <div class="error text-danger">{{ $errors->first('fancy_4') }}</div>
+                     @endif
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="form-group">
+                     <label for="fancy_5">Rate (5.01 to 9.99)</label>
+                     <input type="number" name="fancy_5" class="form-control form-control-rounded" id="fancy_5" placeholder="Enter amount" value="{{$party->fancy_5}}">
+                     @if($errors->has('fancy_5'))
+                     <div class="error text-danger">{{ $errors->first('fancy_5') }}</div>
+                     @endif
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="form-group">
+                     <label for="fancy_6">Rate (10.00 to more)</label>
+                     <input type="number" name="fancy_6" class="form-control form-control-rounded" id="fancy_6" placeholder="Enter amount" value="{{$party->fancy_6}}">
+                     @if($errors->has('fancy_6'))
+                     <div class="error text-danger">{{ $errors->first('fancy_6') }}</div>
                      @endif
                   </div>
                </div>

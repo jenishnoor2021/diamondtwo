@@ -218,21 +218,33 @@ class AdminProcessController extends Controller
             $partyrate = Party::where('id', $dimonds->parties_id)->first();
 
             if ($dimonds->shape == 'Round') {
-                if ($dimonds->weight < 3)
+                if ($dimonds->weight < 1)
                     $get_party_rate = !empty($partyrate->round_1) && $partyrate->round_1 != '' ? $partyrate->round_1 : 0;
-                else if ($dimonds->weight >= 3 && $dimonds->weight < 10)
+                else if ($dimonds->weight >= 1 && $dimonds->weight <= 2)
                     $get_party_rate = !empty($partyrate->round_2) && $partyrate->round_2 != '' ? $partyrate->round_2 : 0;
-                else
+                else if ($dimonds->weight > 2 && $dimonds->weight <= 3)
                     $get_party_rate = !empty($partyrate->round_3) && $partyrate->round_3 != '' ? $partyrate->round_3 : 0;
+                else if ($dimonds->weight > 3 && $dimonds->weight <= 5)
+                    $get_party_rate = !empty($partyrate->round_4) && $partyrate->round_4 != '' ? $partyrate->round_4 : 0;
+                else if ($dimonds->weight > 5 && $dimonds->weight <= 7)
+                    $get_party_rate = !empty($partyrate->round_5) && $partyrate->round_5 != '' ? $partyrate->round_5 : 0;
+                else
+                    $get_party_rate = !empty($partyrate->round_6) && $partyrate->round_6 != '' ? $partyrate->round_6 : 0;
             }
 
             if ($dimonds->shape != 'Round') {
-                if ($dimonds->weight < 3)
+                if ($dimonds->weight < 0.50)
                     $get_party_rate = !empty($partyrate->fancy_1) && $partyrate->fancy_1 != '' ? $partyrate->fancy_1 : 0;
-                else if ($dimonds->weight >= 3 && $dimonds->weight < 10)
+                else if ($dimonds->weight >= 0.50 && $dimonds->weight <= 0.99)
                     $get_party_rate = !empty($partyrate->fancy_2) && $partyrate->fancy_2 != '' ? $partyrate->fancy_2 : 0;
-                else
+                else if ($dimonds->weight >= 1 && $dimonds->weight <= 2)
                     $get_party_rate = !empty($partyrate->fancy_3) && $partyrate->fancy_3 != '' ? $partyrate->fancy_3 : 0;
+                else if ($dimonds->weight > 2 && $dimonds->weight <= 5)
+                    $get_party_rate = !empty($partyrate->fancy_4) && $partyrate->fancy_4 != '' ? $partyrate->fancy_4 : 0;
+                else if ($dimonds->weight > 5 && $dimonds->weight <= 9.99)
+                    $get_party_rate = !empty($partyrate->fancy_5) && $partyrate->fancy_5 != '' ? $partyrate->fancy_5 : 0;
+                else
+                    $get_party_rate = !empty($partyrate->fancy_6) && $partyrate->fancy_6 != '' ? $partyrate->fancy_6 : 0;
             }
 
 

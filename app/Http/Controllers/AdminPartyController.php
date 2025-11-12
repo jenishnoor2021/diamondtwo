@@ -51,6 +51,19 @@ class AdminPartyController extends Controller
             return Redirect::back()->withInput($input)->withErrors($validator);
         }
 
+        $input['round_1'] = $input['round_1'] ?? '1050';
+        $input['round_2'] = $input['round_2'] ?? '1050';
+        $input['round_3'] = $input['round_3'] ?? '900';
+        $input['round_4'] = $input['round_4'] ?? '850';
+        $input['round_5'] = $input['round_5'] ?? '850';
+        $input['round_6'] = $input['round_6'] ?? '850';
+        $input['fancy_1'] = $input['fancy_1'] ?? '1400';
+        $input['fancy_2'] = $input['fancy_2'] ?? '1400';
+        $input['fancy_3'] = $input['fancy_3'] ?? '1350';
+        $input['fancy_4'] = $input['fancy_4'] ?? '1200';
+        $input['fancy_5'] = $input['fancy_5'] ?? '1100';
+        $input['fancy_6'] = $input['fancy_6'] ?? '1050';
+
         Party::create($input);
         return redirect('admin/party')->with('success', "Add Record Successfully");
     }
@@ -102,6 +115,19 @@ class AdminPartyController extends Controller
         if ($validator->fails()) {
             return Redirect::back()->withInput($input)->withErrors($validator);
         }
+
+        $input['round_1'] = $input['round_1'] ?? '1050';
+        $input['round_2'] = $input['round_2'] ?? '1050';
+        $input['round_3'] = $input['round_3'] ?? '900';
+        $input['round_4'] = $input['round_4'] ?? '850';
+        $input['round_5'] = $input['round_5'] ?? '850';
+        $input['round_6'] = $input['round_6'] ?? '850';
+        $input['fancy_1'] = $input['fancy_1'] ?? '1400';
+        $input['fancy_2'] = $input['fancy_2'] ?? '1400';
+        $input['fancy_3'] = $input['fancy_3'] ?? '1350';
+        $input['fancy_4'] = $input['fancy_4'] ?? '1200';
+        $input['fancy_5'] = $input['fancy_5'] ?? '1100';
+        $input['fancy_6'] = $input['fancy_6'] ?? '1050';
 
         $push->update($input);
         return redirect('admin/party')->with('success', "Update Record Successfully");
