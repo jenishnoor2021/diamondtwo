@@ -248,7 +248,8 @@ use Carbon\Carbon;
             </thead>
             <tbody>
               <?php $t_w = 0;
-              $t_p_w = 0; ?>
+              $t_p_w = 0;
+              $total = 0; ?>
               @foreach($process as $proc)
               <tr>
                 <td align="center"><?= $proc['dimond_name'] ?></td>
@@ -260,7 +261,8 @@ use Carbon\Carbon;
                 <td align="center"><?= \Carbon\Carbon::parse($proc['delivery_date'])->format('d-m-Y') ?></td>
               </tr>
               <?php $t_w += $proc['weight'];
-              $t_p_w += $proc['required_weight']; ?>
+              $t_p_w += $proc['required_weight'];
+              $total += $proc['amount']; ?>
               @endforeach
               <tr class="top-b">
                 <td align="center">Total</td>
@@ -268,7 +270,7 @@ use Carbon\Carbon;
                 <td align="center"><?= $t_p_w ?></td>
                 <td align="center"></td>
                 <td align="center"></td>
-                <td align="center"></td>
+                <td align="center"><?= $total ?></td>
                 <td align="center"></td>
               </tr>
             </tbody>

@@ -87,6 +87,7 @@ class DiamondSlipStyledExport implements FromCollection, WithEvents, WithTitle
                 $row = 9;
                 $totalRW = 0;
                 $totalPW = 0;
+                $totalAmount = 0;
 
                 foreach ($diamonds as $diamond) {
                     $sheet->setCellValue("A$row", $diamond->dimond_name);
@@ -108,6 +109,7 @@ class DiamondSlipStyledExport implements FromCollection, WithEvents, WithTitle
 
                     $totalRW += $diamond->weight;
                     $totalPW += $diamond->required_weight;
+                    $totalAmount += $diamond->amount;
                     $row++;
                 }
 
@@ -115,9 +117,11 @@ class DiamondSlipStyledExport implements FromCollection, WithEvents, WithTitle
                 $sheet->setCellValue("A$row", 'Total');
                 $sheet->setCellValue("B$row", number_format($totalRW, 2));
                 $sheet->setCellValue("C$row", number_format($totalPW, 2));
+                $sheet->setCellValue("F$row", number_format($totalAmount, 2));
                 $sheet->setCellValue("I$row", 'Total');
                 $sheet->setCellValue("J$row", number_format($totalRW, 2));
                 $sheet->setCellValue("K$row", number_format($totalPW, 2));
+                $sheet->setCellValue("N$row", number_format($totalAmount, 2));
 
                 // Borders
                 $sheet->getStyle("A8:G$row")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
