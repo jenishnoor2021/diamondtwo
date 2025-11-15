@@ -33,7 +33,7 @@ class AdminWorkerAttendanceController extends Controller
         }
 
         $todayattendanceRecords = $query->orderBy('id', 'DESC')->get();
-        $workers = Worker::orderBy('id', 'DESC')->get();
+        $workers = Worker::where('is_active', 1)->orderBy('id', 'DESC')->get();
 
         return view('admin.worker_attendance.index', compact('workers', 'todayattendanceRecords'));
     }
@@ -62,7 +62,7 @@ class AdminWorkerAttendanceController extends Controller
             $totaldays = $startDate->diffInDays($endDate) + 1; // +1 to include both start and end date
         }
 
-        $workers = Worker::get();
+        $workers = Worker::where('is_active', 1)->get();
         return view('admin.worker_attendance.summary', compact('workers', 'todayattendanceRecords', 'totaldays'));
     }
 
@@ -150,7 +150,7 @@ class AdminWorkerAttendanceController extends Controller
      */
     public function create()
     {
-        $workers = Worker::orderBy('id', 'DESC')->get();
+        $workers = Worker::where('is_active', 1)->orderBy('id', 'DESC')->get();
         return view('admin.worker_attendance.create', compact('workers'));
     }
 
