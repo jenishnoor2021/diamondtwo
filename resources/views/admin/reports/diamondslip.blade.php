@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use App\Models\Process;
 ?>
 @extends('layouts.admin')
 @section('content')
@@ -102,31 +103,56 @@ use Carbon\Carbon;
                 <button type="submit" formaction="{{ route('admin.diamondslipexcel') }}">Generate Excel</button>
                 <tr>
                   @foreach($dimonds as $index =>$dimond)
+                  <?php
+                  $r_cut = Process::select('r_cut')->where('dimonds_id', $dimond->id)->where('designation', 'Grading')->first();
+                  ?>
                   <input type="hidden" id="parties_id" name="parties_id" value="{{$dimond->parties_id}}">
-
-                  <td><input type="checkbox" class="checkbox" name="selected[]" value="{{ $dimond->id }}"></td>
-                  <td>{{$dimond->dimond_name}}</td>
-                  <td>{{$dimond->weight}}</td>
-                  <td>{{$dimond->required_weight}}</td>
-                  <!-- <td>{!! $dimond->barcode_number !!}</td> -->
-                  <!-- <td>{!! $dimond->status !!}</td> -->
-                  <td>{{$dimond->shape}}</td>
-                  <!-- <td>{{$dimond->clarity}}</td> -->
-                  <!-- <td>{{$dimond->color}}</td> -->
-                  <td>{{$dimond->cut}}</td>
-                  <!-- <td>{{$dimond->polish}}</td> -->
-                  <!-- <td>{{$dimond->symmetry}}</td> -->
-                  <td>{{$dimond->amount}}</td>
-                  <td>{{ \Carbon\Carbon::parse($dimond->delevery_date)->format('d-m-Y') }}</td>
-                </tr>
-                @endforeach
-              </tbody>
             </form>
+            <td><input type="checkbox" class="checkbox" name="selected[]" value="{{ $dimond->id }}"></td>
+            <td>{{$dimond->dimond_name}}</td>
+            <td>{{$dimond->weight}}</td>
+            <td>{{$dimond->required_weight}}</td>
+            <!-- <td>{!! $dimond->barcode_number !!}</td> -->
+            <!-- <td>{!! $dimond->status !!}</td> -->
+            <td>{{$dimond->shape}}</td>
+            <!-- <td>{{$dimond->clarity}}</td> -->
+            <!-- <td>{{$dimond->color}}</td> -->
+            <td>{{$r_cut['r_cut']}}</td>
+            <!-- <td>{{$dimond->polish}}</td> -->
+            <!-- <td>{{$dimond->symmetry}}</td> -->
+            <td>
+              <!-- Display view -->
+              <span class="amountText">{{ $dimond->amount }}</span>
+
+              <!-- Edit input (hidden by default) -->
+              <input type="number"
+                class="form-control amountInput"
+                value="{{ $dimond->amount }}"
+                data-id="{{ $dimond->id }}"
+                style="display:none; width:100px;">
+
+              <!-- Edit Button -->
+              <button class="btn btn-sm btn-default editAmountBtn"
+                data-id="{{ $dimond->id }}" title="Edit Amount">
+                <i class="fa fa-edit"></i>
+              </button>
+
+              <!-- Save Button (hidden by default) -->
+              <button class="btn btn-sm btn-success mt-1 saveAmountBtn"
+                data-id="{{ $dimond->id }}"
+                style="display:none;">
+                Update
+              </button>
+            </td>
+            <td>{{ \Carbon\Carbon::parse($dimond->delevery_date)->format('d-m-Y') }}</td>
+            </tr>
+            @endforeach
+            </tbody>
           </table>
-          @else
-          No Record Found
-          @endif
         </div>
+        @else
+        No Record Found
+        @endif
       </div>
     </div>
   </div>
@@ -174,4 +200,56 @@ use Carbon\Carbon;
     });
   });
 </script>
+
+<script>
+  $(document).ready(function() {
+
+    // CLICK EDIT
+    $('.editAmountBtn').click(function() {
+      let tr = $(this).closest('td');
+
+      tr.find('.amountText').hide();
+      tr.find('.editAmountBtn').hide();
+
+      tr.find('.amountInput').show();
+      tr.find('.saveAmountBtn').show();
+    });
+
+    // CLICK SAVE
+    $('.saveAmountBtn').click(function() {
+
+      let tr = $(this).closest('td');
+      let input = tr.find('.amountInput');
+
+      let id = input.data('id');
+      let newAmount = input.val();
+
+      $.ajax({
+        url: "{{ route('admin.updateDiamondAmount') }}",
+        type: "POST",
+        data: {
+          _token: "{{ csrf_token() }}",
+          id: id,
+          amount: newAmount
+        },
+        success: function(res) {
+          // Update UI
+          tr.find('.amountText').text(newAmount).show();
+          tr.find('.editAmountBtn').show();
+
+          tr.find('.amountInput').hide();
+          tr.find('.saveAmountBtn').hide();
+
+          alert("Amount updated!");
+        },
+        error: function() {
+          alert("Error updating amount!");
+        }
+      });
+
+    });
+
+  });
+</script>
+
 @endsection

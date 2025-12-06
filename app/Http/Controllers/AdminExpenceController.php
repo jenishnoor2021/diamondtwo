@@ -614,11 +614,13 @@ class AdminExpenceController extends Controller
         $status = $request->input('status');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
+        $whichDiamond = $request->input('date_column');
+
         // $outerProcess = $request->input('process');
         $dimondsQuery = Dimond::query();
         if (isset($partyId) && $partyId != 'All') {
             $dimondsQuery->where('parties_id', $partyId);
-            $partyLists = Party::where('id', $partyId)->where('is_active', 1)->get();
+            // $partyLists = Party::where('id', $partyId)->where('is_active', 1)->get();
         }
 
         if (!empty($status)) {
@@ -627,10 +629,10 @@ class AdminExpenceController extends Controller
         if (isset($startDate)) {
             if (isset($endDate)) {
                 // If both start and end dates are provided
-                $dimondsQuery->whereDate('delevery_date', '>=', $startDate)->whereDate('delevery_date', '<=', $endDate);
+                $dimondsQuery->whereDate($whichDiamond, '>=', $startDate)->whereDate($whichDiamond, '<=', $endDate);
             } else {
                 // If only start date is provided
-                $dimondsQuery->where('delevery_date', '>=', $startDate);
+                $dimondsQuery->where($whichDiamond, '>=', $startDate);
             }
         }
 
@@ -1085,6 +1087,8 @@ class AdminExpenceController extends Controller
                 // Fetch data from the database based on the ID
                 $dimond = Dimond::where('id', $selectedRow)->first();
 
+                $r_cut = Process::select('r_cut')->where('dimonds_id', $dimond->id)->where('designation', 'Grading')->first();
+
                 // Add the processed data to the array
                 $process[] = [
                     'dimond_name' => $dimond->dimond_name,
@@ -1094,7 +1098,7 @@ class AdminExpenceController extends Controller
                     'shape' => $dimond->shape,
                     'clarity' => $dimond->clarity,
                     'color' => $dimond->color,
-                    'cut' => $dimond->cut,
+                    'cut' => $r_cut['r_cut'],
                     'polish' => $dimond->polish,
                     'symmetry' => $dimond->symmetry,
                     'amount' => $dimond->amount,
@@ -1150,14 +1154,29 @@ class AdminExpenceController extends Controller
 
     public function addDiamondList(Request $request)
     {
+        $partyLists = Party::where('is_active', 1)->get();
+        $partyId = $request->input('party_id');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $data = [];
 
-        if (isset($startDate) && isset($endDate)) {
-            $data = Dimond::whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get();
+        $dimondsQuery = Dimond::query();
+        if (isset($partyId) && $partyId != 'All') {
+            $dimondsQuery->where('parties_id', $partyId);
         }
-        return view('admin.reports.adddimondlist', compact('data'));
+
+        if (isset($startDate)) {
+            if (isset($endDate)) {
+                // If both start and end dates are provided
+                $dimondsQuery->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            } else {
+                // If only start date is provided
+                $dimondsQuery->where('created_at', '>=', $startDate);
+            }
+        }
+
+        $data = $partyId ? $dimondsQuery->get() : [];
+        return view('admin.reports.adddimondlist', compact('data', 'partyLists'));
     }
 
     public function diamondPrintList(Request $request)
@@ -1192,5 +1211,19 @@ class AdminExpenceController extends Controller
         // $pdf = PDF::loadView('admin.dimond.printSlip', compact('data'));
 
         // return $pdf->download('barcodes-list.pdf');
+    }
+
+    public function updateAmount(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer',
+            'amount' => 'required|numeric'
+        ]);
+
+        $d = Dimond::find($request->id);
+        $d->amount = $request->amount;
+        $d->save();
+
+        return response()->json(['success' => true]);
     }
 }

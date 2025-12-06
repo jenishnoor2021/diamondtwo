@@ -89,6 +89,18 @@ use Carbon\Carbon;
                 @endif
               </div>
             </div>
+            <div class="col-2">
+              <div class="form-group">
+                <label for="date_column">Date</label>
+                <select name="date_column" id="date_column" class="custom-select form-control form-control-rounded" required>
+                  <option value="created_at" {{ request()->date_column == 'created_at' ? 'selected' : '' }}>Created</option>
+                  <option value="delevery_date" {{ request()->date_column == 'delevery_date' ? 'selected' : '' }}>Delivery</option>
+                </select>
+                @if($errors->has('date_column'))
+                <div class="error text-danger">{{ $errors->first('date_column') }}</div>
+                @endif
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-light btn-round px-5">Report</button>

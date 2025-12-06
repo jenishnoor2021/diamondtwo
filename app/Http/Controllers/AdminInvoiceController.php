@@ -31,7 +31,7 @@ class AdminInvoiceController extends Controller
      */
     public function create()
     {
-        $partyes = Party::get();
+        $partyes = Party::where('is_active', 1)->get();
         $companyes = Company::get();
         return view('admin.invoice.create', compact('partyes', 'companyes'));
     }

@@ -23,6 +23,21 @@ use App\Models\Dimond;
         <form action="{{ route('admin.add-dimond.list') }}" id="myDiamondList" method="get">
           @csrf
           <div class="row">
+            <div class="col-3">
+              <div class="form-group">
+                <label for="party_id">Party Name</label>
+                <select name="party_id" id="party_id" class="custom-select form-control form-control-rounded" required>
+                  <option value="">Select party</option>
+                  <option value="All" {{ request()->party_id == 'All' ? 'selected' : '' }}>ALL</option>
+                  @foreach($partyLists as $partyList)
+                  <option value="{{$partyList->id}}" {{ request()->party_id == $partyList->id ? 'selected' : '' }}>{{$partyList->fname}}&nbsp;&nbsp;{{$partyList->lname}}</option>
+                  @endforeach
+                </select>
+                @if($errors->has('party_id'))
+                <div class="error text-danger">{{ $errors->first('party_id') }}</div>
+                @endif
+              </div>
+            </div>
             <div class="col-2">
               <div class="form-group">
                 <label for="start_date">Start Date:</label>

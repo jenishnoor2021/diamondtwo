@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use App\Models\Process;
 
 class DiamondSlipStyledExport implements FromCollection, WithEvents, WithTitle
 {
@@ -90,11 +91,13 @@ class DiamondSlipStyledExport implements FromCollection, WithEvents, WithTitle
                 $totalAmount = 0;
 
                 foreach ($diamonds as $diamond) {
+                    $r_cut = Process::select('r_cut')->where('dimonds_id', $diamond->id)->where('designation', 'Grading')->first();
+
                     $sheet->setCellValue("A$row", $diamond->dimond_name);
                     $sheet->setCellValue("B$row", $diamond->weight);
                     $sheet->setCellValue("C$row", $diamond->required_weight);
                     $sheet->setCellValue("D$row", $diamond->shape);
-                    $sheet->setCellValue("E$row", $diamond->cut);
+                    $sheet->setCellValue("E$row", $r_cut['r_cut']);
                     $sheet->setCellValue("F$row", $diamond->amount);
                     $sheet->setCellValue("G$row", Carbon::parse($diamond->delevery_date)->format('d-m-Y'));
 
@@ -103,7 +106,7 @@ class DiamondSlipStyledExport implements FromCollection, WithEvents, WithTitle
                     $sheet->setCellValue("J$row", $diamond->weight);
                     $sheet->setCellValue("K$row", $diamond->required_weight);
                     $sheet->setCellValue("L$row", $diamond->shape);
-                    $sheet->setCellValue("M$row", $diamond->cut);
+                    $sheet->setCellValue("M$row", $r_cut['r_cut']);
                     $sheet->setCellValue("N$row", $diamond->amount);
                     $sheet->setCellValue("O$row", Carbon::parse($diamond->delevery_date)->format('d-m-Y'));
 

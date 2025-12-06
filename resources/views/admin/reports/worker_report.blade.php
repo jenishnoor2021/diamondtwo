@@ -81,8 +81,8 @@ use App\Models\Process;
                   <option value="delevery_date">Deliverd</option>
                   <option value="updated_at">Reguler</option>
                 </select>
-                @if($errors->has('worker_name'))
-                <div class="error text-danger">{{ $errors->first('worker_name') }}</div>
+                @if($errors->has('which_diamond'))
+                <div class="error text-danger">{{ $errors->first('which_diamond') }}</div>
                 @endif
               </div>
             </div>
