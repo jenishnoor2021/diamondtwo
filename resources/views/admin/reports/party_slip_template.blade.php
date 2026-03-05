@@ -22,14 +22,14 @@ use Carbon\Carbon;
 
     .column-left {
       float: left;
-      width: 50%;
+      width: 47%;
       padding: 5px;
       /* border-right: 1px dotted #000; */
     }
 
     .column-right {
-      float: left;
-      width: 50%;
+      float: right;
+      width: 47%;
       padding: 5px;
     }
 
