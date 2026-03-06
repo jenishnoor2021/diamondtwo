@@ -224,11 +224,16 @@
     $("#partytable").DataTable();
     $("#workertable").DataTable();
     $("#dailytable").DataTable();
-    $("#dimondtable").DataTable();
+    // $("#dimondtable").DataTable();
     $("#dimondprocesstable").DataTable();
     $(".data-table").DataTable();
     $(".data-table1").DataTable();
     $("#workerbarcodelist").DataTable();
+    $("#dimondtable").DataTable({
+      paging: false,
+      searching: false,
+      info: false
+    });
   });
 </script>
 

@@ -29,7 +29,10 @@ class AdminDimondController extends Controller
      */
     public function index()
     {
-        $dimonds = Dimond::orderBy('id', 'DESC')->get();
+        $dimonds = Dimond::with(['parties', 'process'])
+            ->orderBy('id', 'DESC')
+            ->paginate(10);
+        // $dimonds = Dimond::orderBy('id', 'DESC')->get();
         return view('admin.dimond.index', compact('dimonds'));
     }
 

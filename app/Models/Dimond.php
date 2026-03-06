@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Models\Party;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Process;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Dimond extends Model
 {
@@ -15,5 +16,10 @@ class Dimond extends Model
     public function parties()
     {
         return $this->belongsTo(Party::class);
+    }
+
+    public function process()
+    {
+        return $this->hasOne(Process::class, 'dimonds_id')->latest();
     }
 }

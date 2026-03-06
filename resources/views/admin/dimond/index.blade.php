@@ -85,8 +85,7 @@ use App\Models\Process;
                   <tr>
                      @foreach($dimonds as $index =>$dimond)
                      @php
-                     $process = Process::where('dimonds_id',$dimond->id)->latest()->first();
-                     $designation = isset($process) ? $process->designation : '';
+                     $designation = $dimond->process->designation ?? '';
                      @endphp
                      <td>
                         <a href="/admin/print-image/{{$dimond->id}}" target="_blank" class="btn btn-secondary">Print</a>
@@ -126,6 +125,10 @@ use App\Models\Process;
                   @endforeach
                </tbody>
             </table>
+
+            <div class="d-flex justify-content-center">
+               {{ $dimonds->links('pagination::bootstrap-4') }}
+            </div>
          </div>
       </div>
    </div>
