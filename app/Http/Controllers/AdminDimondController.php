@@ -14,11 +14,13 @@ use App\Models\Designation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\DeletedDimondsExport;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\HeadingRowImport;
 use Illuminate\Support\Facades\Redirect;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Yajra\DataTables\Facades\DataTables;
 
 class AdminDimondController extends Controller
 {
@@ -27,13 +29,68 @@ class AdminDimondController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $dimonds = Dimond::with(['parties', 'process'])
-            ->orderBy('id', 'DESC')
-            ->paginate(10);
-        // $dimonds = Dimond::orderBy('id', 'DESC')->get();
-        return view('admin.dimond.index', compact('dimonds'));
+        if ($request->ajax()) {
+
+            $data = Dimond::with(['parties', 'process'])
+                ->select('dimonds.*')
+                ->orderBy('id', 'DESC');
+
+            return DataTables::of($data)
+
+                ->addColumn('party', function ($row) {
+                    return $row->parties->party_code ?? '';
+                })
+
+                ->addColumn('process', function ($row) {
+                    return $row->process->designation ?? '';
+                })
+
+                ->addColumn('action', function ($row) {
+
+                    $btn = '
+                <a href="/admin/print-image/' . $row->id . '" target="_blank" class="btn btn-secondary btn-sm">Print</a>
+    
+                <a href="' . route('admin.dimond.show', $row->barcode_number) . '">
+                    <i class="fa fa-eye" style="color:white;font-size:15px;background-color:rgba(255,255,255,0.25);padding:8px;"></i>
+                </a>
+    
+                <a href="' . route('admin.dimond.edit', $row->id) . '">
+                    <i class="fa fa-edit" style="color:white;font-size:15px;background-color:rgba(255,255,255,0.25);padding:8px;"></i>
+                </a>
+    
+                <a href="' . route('admin.dimond.destroy', $row->id) . '" onclick="return confirm(\'Sure ! You want to delete ?\');">
+                    <i class="fa fa-trash" style="color:white;font-size:15px;background-color:rgba(255,255,255,0.25);padding:8px;"></i>
+                </a>';
+
+                    return $btn;
+                })
+
+                ->addColumn('detail', function ($row) {
+
+                    return '
+                <div onclick="addappdata1(' . $row->id . ')" style="cursor:pointer">
+                    <i class="fa fa-plus-circle text-warning"></i> show
+                </div>
+    
+                <div id="showsolddetails' . $row->id . '" style="display:none">
+                    <p><span class="text-warning">Shape :</span> ' . $row->shape . '</p>
+                    <p><span class="text-warning">Clarity :</span> ' . $row->clarity . '</p>
+                    <p><span class="text-warning">Color :</span> ' . $row->color . '</p>
+                    <p><span class="text-warning">Cut :</span> ' . $row->cut . '</p>
+                    <p><span class="text-warning">Polish :</span> ' . $row->polish . '</p>
+                    <p><span class="text-warning">Symmetry :</span> ' . $row->symmetry . '</p>
+                </div>
+                ';
+                })
+
+                ->rawColumns(['action', 'detail', 'barcode_number', 'status'])
+
+                ->make(true);
+        }
+
+        return view('admin.dimond.index');
     }
 
     /**
@@ -306,5 +363,39 @@ class AdminDimondController extends Controller
         }
 
         return back()->with('success', 'Diamonds imported successfully.');
+    }
+
+    public function backup(Request $request)
+    {
+
+        $data = [];
+
+        if ($request->date) {
+
+            $data = Dimond::whereDate('delevery_date', '<=', $request->date)->get();
+        }
+
+        return view('admin.dimond.backup', compact('data'));
+    }
+
+    public function exportDeleteDimonds(Request $request)
+    {
+
+        $ids = $request->dimond_ids;
+
+        if (!$ids) {
+            return back()->with('error', 'Please select diamond');
+        }
+
+        $filename = 'deleted_dimonds_' . date('YmdHis') . '.xlsx';
+
+        $file = Excel::download(new DeletedDimondsExport($ids), $filename);
+        // Excel::download(new DeletedDimondsExport($ids), $filename);
+
+        // delete after export
+        // Dimond::whereIn('id', $ids)->delete();
+
+        return $file;
+        // return Excel::download(new DeletedDimondsExport($ids), $filename);
     }
 }

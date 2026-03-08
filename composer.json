@@ -24,7 +24,8 @@
         "nesbot/carbon": "^2.71",
         "phpoffice/phpspreadsheet": "1.18",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "tecnickcom/tcpdf": "^6.6"
+        "tecnickcom/tcpdf": "^6.6",
+        "yajra/laravel-datatables-oracle": "^9.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

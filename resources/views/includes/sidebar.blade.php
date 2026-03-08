@@ -196,6 +196,11 @@
           <span>Company Detail</span>
         </a>
       </li>
+      <li class="pt-2 pb-2 {{ (request()->segment(2) == 'backup') ? 'active' : '' }}">
+        <a href="/admin/backup">
+          <span>Backup</span>
+        </a>
+      </li>
     </ul>
   </li>
 

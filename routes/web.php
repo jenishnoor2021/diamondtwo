@@ -221,6 +221,9 @@ Route::group(['middleware' => ['auth', 'usersession']], function () {
     Route::post('admin/import-diamonds', [App\Http\Controllers\AdminDimondController::class, 'import'])->name('import.diamonds');
     Route::post('/admin/diamondslip-excel', [AdminExpenceController::class, 'diamondSlipExcel'])->name('admin.diamondslipexcel');
 
+    Route::get('/admin/backup', [AdminDimondController::class, 'backup'])->name('admin.backup');
+    Route::post('/admin/export-delete-dimonds', [AdminDimondController::class, 'exportDeleteDimonds'])->name('admin.export.delete.dimonds');
+
     Route::post(
         '/admin/diamond/update-amount',
         [AdminExpenceController::class, 'updateAmount']
