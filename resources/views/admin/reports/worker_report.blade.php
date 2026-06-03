@@ -78,8 +78,8 @@ use App\Models\Process;
               <div class="form-group">
                 <label for="which_diamond">Worker</label>
                 <select name="which_diamond" id="which_diamond" class="custom-select form-control form-control-rounded" required>
-                  <option value="delevery_date">Deliverd</option>
-                  <option value="updated_at">Reguler</option>
+                  <option value="delevery_date" {{ request()->which_diamond == 'delevery_date' ? 'selected' : '' }}>Deliverd</option>
+                  <option value="updated_at" {{ request()->which_diamond == 'updated_at' ? 'selected' : '' }}>Reguler</option>
                 </select>
                 @if($errors->has('which_diamond'))
                 <div class="error text-danger">{{ $errors->first('which_diamond') }}</div>
@@ -89,7 +89,7 @@ use App\Models\Process;
             <div class="col-2">
               <div class="form-group">
                 <label for="start_date">Start Date:</label>
-                <input type="date" name="start_date" class="form-control form-control-rounded" id="start_date" value="{{ old('start_date') }}" required>
+                <input type="date" name="start_date" class="form-control form-control-rounded" id="start_date" value="{{ request()->start_date ?? old('start_date') }}" required>
                 @if($errors->has('start_date'))
                 <div class="error text-danger">{{ $errors->first('start_date') }}</div>
                 @endif
@@ -98,7 +98,7 @@ use App\Models\Process;
             <div class="col-2">
               <div class="form-group">
                 <label for="end_date">End Date:</label>
-                <input type="date" name="end_date" class="form-control form-control-rounded" id="end_date" value="{{ old('end_date') }}" required>
+                <input type="date" name="end_date" class="form-control form-control-rounded" id="end_date" value="{{ request()->end_date ?? old('end_date') }}" required>
                 @if($errors->has('end_date'))
                 <div class="error text-danger">{{ $errors->first('end_date') }}</div>
                 @endif
@@ -178,7 +178,7 @@ use App\Models\Process;
                   <td>{{ isset($rw) ? $rw : '' }}</td>
                   <td>{{ $da->price }}</td>
                   <td>{{ \Carbon\Carbon::parse($getdimond->created_at)->format('d-m-Y')}}</td>
-                  <td>{{ \Carbon\Carbon::parse($getdimond->delevery_date)->format('d-m-Y') }}</td>
+                  <td>{{ $getdimond->delevery_date ? \Carbon\Carbon::parse($getdimond->delevery_date)->format('d-m-Y') : '-' }}</td>
                   @php
                   $p += 1;
                   @endphp
@@ -202,7 +202,7 @@ use App\Models\Process;
                   <td>{{ isset($rw) ? $rw : '' }}</td>
                   <td>{{ $da->price }}</td>
                   <td>{{ \Carbon\Carbon::parse($getdimond->created_at)->format('d-m-Y')}}</td>
-                  <td>{{ \Carbon\Carbon::parse($getdimond->delevery_date)->format('d-m-Y') }}</td>
+                  <td>{{ $getdimond->delevery_date ? \Carbon\Carbon::parse($getdimond->delevery_date)->format('d-m-Y') : '-' }}</td>
                   @php
                   $p += 1;
                   @endphp
@@ -225,7 +225,7 @@ use App\Models\Process;
                     <td>{{ isset($rw) ? $rw : '' }}</td>
                     <td>{{ $da->price }}</td>
                     <td>{{ \Carbon\Carbon::parse($getdimond->created_at)->format('d-m-Y')}}</td>
-                    <td>{{ \Carbon\Carbon::parse($getdimond->delevery_date)->format('d-m-Y') }}</td>
+                    <td>{{ $getdimond->delevery_date ? \Carbon\Carbon::parse($getdimond->delevery_date)->format('d-m-Y') : '-' }}</td>
                     @php
                     $p += 1;
                     @endphp
@@ -324,6 +324,40 @@ use App\Models\Process;
         $('#designation').empty();
       }
     });
+
+    // Preserve selected worker and designation on page load from query parameters
+    var initialDesignation = @json(request() - > designation);
+    var initialWorkerName = @json(request() - > worker_name);
+
+    if (initialDesignation) {
+      $('#designation').val(initialDesignation);
+
+      if (initialDesignation === 'all') {
+        $('#worker_name').html('<option value="">Select worker</option><option value="all" selected>ALL</option>');
+        if (initialWorkerName && initialWorkerName !== 'all') {
+          $('#worker_name').append('<option value="' + initialWorkerName + '" selected>' + initialWorkerName + '</option>');
+        }
+      } else {
+        $.ajax({
+          type: 'POST',
+          url: '/admin/get-workers',
+          data: {
+            '_token': '{{ csrf_token() }}',
+            'designation': initialDesignation,
+          },
+          success: function(data) {
+            $('#worker_name').empty();
+            $('#worker_name').append('<option value="">Select worker</option><option value="all">ALL</option>');
+            $.each(data, function(key, value) {
+              $('#worker_name').append('<option value="' + value.fname + '">' + value.fname + ' ' + value.lname + '</option>');
+            });
+            if (initialWorkerName) {
+              $('#worker_name').val(initialWorkerName);
+            }
+          }
+        });
+      }
+    }
   });
 </script>
 <script>

@@ -123,7 +123,26 @@ use App\Models\Process;
 
          processing: true,
          serverSide: true,
-         ajax: "{{ route('admin.dimond.index') }}",
+         ajax: {
+            url: "{{ route('admin.dimond.index') }}",
+            data: function(d) {
+               function getQueryParam(name) {
+                  name = name.replace(/[\[\]]/g, "\\$&");
+                  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+                  var results = regex.exec(window.location.href);
+                  if (!results) return null;
+                  if (!results[2]) return '';
+                  return decodeURIComponent(results[2].replace(/\+/g, " "));
+               }
+
+               var party_id = getQueryParam('party_id');
+               var status = getQueryParam('status');
+               var repair = getQueryParam('repair');
+               if (party_id) d.party_id = party_id;
+               if (status) d.status = status;
+               if (repair) d.repair = repair;
+            }
+         },
 
          columns: [
 

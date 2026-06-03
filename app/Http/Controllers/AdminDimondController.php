@@ -33,9 +33,23 @@ class AdminDimondController extends Controller
     {
         if ($request->ajax()) {
 
-            $data = Dimond::with(['parties', 'process'])
+            $data = Dimond::with(['parties', 'process', 'repairs'])
                 ->select('dimonds.*')
                 ->orderBy('id', 'DESC');
+
+            if ($request->filled('party_id')) {
+                $data->where('parties_id', $request->party_id);
+            }
+
+            if ($request->filled('repair') && $request->repair == 1) {
+                $data->whereHas('repairs');
+            }
+
+            if ($request->filled('status')) {
+                $data->where('status', $request->status);
+            } elseif (!($request->filled('repair') && $request->repair == 1)) {
+                $data->where('status', '!=', 'Delivered');
+            }
 
             return DataTables::of($data)
 

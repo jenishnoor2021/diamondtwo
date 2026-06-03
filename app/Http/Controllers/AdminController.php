@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Dimond;
 use App\Models\Process;
 use App\Models\Designation;
+use App\Models\Party;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -67,7 +68,8 @@ class AdminController extends Controller
         //         $processing_count += 1;
         //     }
         // }
-        return view('admin.index', compact('pending_count', 'processing_count', 'completed_count', 'deliverd_count', 'total_count', 'outercount'));
+        $partys = Party::orderBy('id', 'DESC')->get();
+        return view('admin.index', compact('pending_count', 'processing_count', 'completed_count', 'deliverd_count', 'total_count', 'outercount', 'partys'));
     }
 
     public function profiledit($id)

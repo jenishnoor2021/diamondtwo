@@ -232,7 +232,7 @@ use App\Models\Process;
             <td>{{ isset($rw) ? $rw : '' }}</td>
             <td>{{ $da->price }}</td>
             <td>{{ \Carbon\Carbon::parse($getdimond->created_at)->format('d-m-Y') }}</td>
-            <td>{{ \Carbon\Carbon::parse($getdimond->delevery_date)->format('d-m-Y') }}</td>
+            <td>{{ $getdimond->delevery_date ? \Carbon\Carbon::parse($getdimond->delevery_date)->format('d-m-Y') : '-' }}</td>
             @php
             $sum += ($da->price);
             $p += 1;
@@ -257,7 +257,7 @@ use App\Models\Process;
             <td>{{ isset($rw) ? $rw : '' }}</td>
             <td>{{ $da->price }}</td>
             <td>{{ \Carbon\Carbon::parse($getdimond->created_at)->format('d-m-Y')}}</td>
-            <td>{{ \Carbon\Carbon::parse($getdimond->delevery_date)->format('d-m-Y') }}</td>
+            <td>{{ $getdimond->delevery_date ? \Carbon\Carbon::parse($getdimond->delevery_date)->format('d-m-Y') : '-' }}</td>
             @php
             $p += 1;
             @endphp
@@ -280,7 +280,7 @@ use App\Models\Process;
               <td>{{ isset($rw) ? $rw : '' }}</td>
               <td>{{ $da->price }}</td>
               <td>{{ \Carbon\Carbon::parse($getdimond->created_at)->format('d-m-Y') }}</td>
-              <td>{{ \Carbon\Carbon::parse($getdimond->delevery_date)->format('d-m-Y') }}</td>
+              <td>{{ $getdimond->delevery_date ? \Carbon\Carbon::parse($getdimond->delevery_date)->format('d-m-Y') : '-' }}</td>
               @php
               $sum += ($da->price);
               $p += 1;
